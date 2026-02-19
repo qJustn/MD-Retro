@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="theme-color" content="#071017" />
+  <meta name="theme-color" content="#0b0f1c" />
   <title>LSMD Bewerbung – Jeff Jeremain</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,25 +12,25 @@
 
   <style>
     :root{
-      --bg0:#04070c;
-      --bg1:#060c14;
-      --bg2:#071017;
-      --panel: rgba(11, 22, 33, .66);
-      --panel2: rgba(9, 18, 28, .72);
-      --stroke: rgba(255,255,255,.09);
-      --stroke2: rgba(0,255,210,.18);
-      --text:#eaf6ff;
-      --muted:#9bb3c6;
-      --mint:#2dffd8;
-      --cyan:#2fd7ff;
-      --blue:#4aa3ff;
-      --pink:#ff3c7e;
+      --bg:#070912;
+      --bg2:#090f22;
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(255,255,255,.045);
+      --stroke: rgba(255,255,255,.12);
+      --text:#eaf2ff;
+      --muted:#a4b2cc;
+
+      --mint:#38f7c6;
+      --cyan:#3ed8ff;
+      --violet:#7b61ff;
+      --pink:#ff3ea6;
       --amber:#ffd166;
-      --ok:#54f3b0;
-      --shadow: 0 24px 90px rgba(0,0,0,.55);
-      --shadow2: 0 16px 50px rgba(0,0,0,.35);
+
+      --shadow: 0 26px 90px rgba(0,0,0,.55);
+      --shadow2: 0 14px 40px rgba(0,0,0,.35);
       --r: 18px;
-      --r2: 22px;
+      --r2: 24px;
+
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     }
 
@@ -39,764 +39,602 @@
     body{
       margin:0;
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--text);
+      color: var(--text);
       background:
-        radial-gradient(1200px 700px at 18% 12%, rgba(45,255,216,.16), transparent 55%),
-        radial-gradient(900px 650px at 86% 20%, rgba(47,215,255,.10), transparent 55%),
-        radial-gradient(900px 650px at 70% 82%, rgba(255,60,126,.06), transparent 60%),
-        linear-gradient(180deg, var(--bg0), var(--bg1) 38%, var(--bg2));
+        radial-gradient(1200px 700px at 15% 20%, rgba(62,216,255,.12), transparent 60%),
+        radial-gradient(900px 700px at 90% 25%, rgba(255,62,166,.10), transparent 55%),
+        radial-gradient(900px 700px at 60% 90%, rgba(123,97,255,.12), transparent 55%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
       overflow-x:hidden;
     }
 
-    /* Subtle medical grid */
-    .gridbg{
+    /* soft noise overlay */
+    .noise{
       position:fixed; inset:0;
-      background:
-        linear-gradient(to right, rgba(255,255,255,.045) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255,255,255,.035) 1px, transparent 1px);
-      background-size: 64px 64px;
-      opacity:.20;
-      pointer-events:none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+      opacity:.08;
       mix-blend-mode: overlay;
-    }
-    .vignette{
-      position:fixed; inset:-10%;
-      background: radial-gradient(circle at 50% 0%, rgba(0,0,0,0), rgba(0,0,0,.65) 60%, rgba(0,0,0,.85));
       pointer-events:none;
     }
 
-    .container{max-width:1120px; margin:0 auto; padding:22px 18px 40px;}
-
-    /* Top header like LSMD UI */
-    .topline{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:14px;
-      padding:14px 16px;
-      border-bottom: 1px solid rgba(255,255,255,.06);
-      background: rgba(0,0,0,.12);
-      backdrop-filter: blur(10px);
-      position:sticky; top:0; z-index:50;
-    }
-    .brand{
-      display:flex; align-items:center; gap:12px; min-width: 260px;
-    }
-    .logo{
-      width:44px; height:44px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, rgba(45,255,216,.18), rgba(47,215,255,.10));
-      border: 1px solid rgba(255,255,255,.10);
-      box-shadow: 0 18px 50px rgba(0,0,0,.35);
-      display:grid; place-items:center;
-      position:relative;
-      overflow:hidden;
-    }
-    .logo:before{
-      content:"";
-      position:absolute; inset:-60%;
-      background: radial-gradient(circle at 40% 30%, rgba(45,255,216,.18), transparent 55%);
-      filter: blur(8px);
-      transform: rotate(20deg);
-    }
-    .logo span{
-      position:relative;
-      font-weight:900;
-      letter-spacing:.2px;
-      color: var(--mint);
-      text-shadow: 0 0 24px rgba(45,255,216,.35);
-    }
-    .brandtxt .t1{font-weight:900; letter-spacing:.2px; font-size:14px}
-    .brandtxt .t2{color:var(--muted); font-size:12px; margin-top:2px}
-
-    .sysbadge{
-      display:inline-flex; align-items:center; gap:10px;
-      padding:8px 12px;
-      border-radius: 999px;
-      background: rgba(84,243,176,.10);
-      border: 1px solid rgba(84,243,176,.22);
-      box-shadow: var(--shadow2);
-      font-weight:900;
-      font-size:12px;
-      color: var(--ok);
-      white-space:nowrap;
-    }
-    .sysdot{
-      width:9px; height:9px; border-radius:50%;
-      background: var(--ok);
-      box-shadow: 0 0 18px rgba(84,243,176,.65);
+    .wrap{
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 34px 18px 80px;
     }
 
-    .actions{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
-    .btn{
-      cursor:pointer;
-      border-radius: 14px;
-      padding:10px 12px;
-      border: 1px solid rgba(255,255,255,.11);
-      background: rgba(255,255,255,.05);
-      color: var(--text);
-      display:inline-flex; align-items:center; gap:10px;
-      font-weight:900;
-      transition: transform .12s ease, border-color .12s ease, background .12s ease;
-      user-select:none;
-    }
-    .btn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.22)}
-    .btn:active{transform: translateY(0px)}
-    .btn .ic{opacity:.95}
-    .btn.primary{
-      background: linear-gradient(135deg, rgba(45,255,216,.12), rgba(47,215,255,.10));
-      border-color: rgba(45,255,216,.22);
-    }
-    .btn.ghost{
-      background: transparent;
-      border-color: rgba(255,255,255,.09);
+    /* Header (no boxes, just clean headline) */
+    .headline{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 18px;
+      align-items: start;
+      margin-bottom: 18px;
     }
 
-    /* Main hero panel */
-    .hero{
-      margin-top:18px;
+    .titleCard{
       border-radius: var(--r2);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
       border: 1px solid rgba(255,255,255,.10);
       box-shadow: var(--shadow);
+      padding: 22px 22px 18px;
+      position:relative;
+      overflow:hidden;
+    }
+    .titleCard:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(700px 280px at 12% 20%, rgba(56,247,198,.18), transparent 70%),
+        radial-gradient(700px 280px at 85% 10%, rgba(62,216,255,.12), transparent 70%),
+        radial-gradient(900px 450px at 60% 110%, rgba(123,97,255,.10), transparent 65%);
+      pointer-events:none;
+      opacity:1;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(56,247,198,.10);
+      border: 1px solid rgba(56,247,198,.22);
+      color: var(--mint);
+      font-weight: 900;
+      font-size: 12px;
+      position:relative;
+      z-index:1;
+    }
+    .dot{
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--mint);
+      box-shadow: 0 0 20px rgba(56,247,198,.6);
+    }
+
+    h1{
+      margin: 14px 0 8px;
+      font-size: 42px;
+      letter-spacing: -1.2px;
+      font-weight: 900;
+      position:relative;
+      z-index:1;
+    }
+    .grad{
+      background: linear-gradient(90deg, var(--cyan), var(--pink));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color: transparent;
+    }
+    .lead{
+      margin:0;
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 64ch;
+      position:relative;
+      z-index:1;
+    }
+
+    .miniMeta{
+      margin-top: 16px;
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      position:relative;
+      z-index:1;
+    }
+    .chip{
+      padding: 9px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.045);
+      font-weight: 800;
+      font-size: 12px;
+      color: var(--text);
+    }
+    .chip b{font-weight:900}
+
+    /* Side info card */
+    .side{
+      border-radius: var(--r2);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: var(--shadow2);
+      padding: 18px;
       overflow:hidden;
       position:relative;
     }
-    .hero:before{
+    .side:before{
       content:"";
-      position:absolute; inset:-1px;
-      background: radial-gradient(700px 240px at 18% 30%, rgba(45,255,216,.16), transparent 70%),
-                  radial-gradient(700px 240px at 78% 20%, rgba(47,215,255,.10), transparent 70%);
+      position:absolute; inset:-2px;
+      background: radial-gradient(500px 300px at 80% 20%, rgba(255,62,166,.10), transparent 70%);
       pointer-events:none;
       opacity:.9;
     }
-    .heroTop{
-      display:flex; gap:16px; align-items:flex-start; justify-content:space-between;
-      padding:18px 18px 12px;
+    .side h2{
+      margin:0 0 12px;
+      font-size: 14px;
+      letter-spacing:.2px;
+      font-weight: 900;
       position:relative;
+      z-index:1;
     }
-    .heroTitle{
-      display:flex; align-items:flex-start; gap:12px;
-    }
-    .docIcon{
-      width:36px; height:36px;
-      border-radius: 12px;
-      background: rgba(47,215,255,.10);
-      border: 1px solid rgba(47,215,255,.20);
-      display:grid; place-items:center;
-      color: var(--cyan);
-      box-shadow: 0 14px 40px rgba(0,0,0,.25);
-      flex:0 0 auto;
-    }
-    .heroTitle h1{
-      margin:0;
-      font-size:26px;
-      letter-spacing:-.5px;
-      font-weight:900;
-    }
-    .heroTitle p{
-      margin:6px 0 0;
-      color: var(--muted);
-      line-height:1.5;
-      max-width: 720px;
-      font-size:13px;
-    }
-
-    /* ECG widget */
-    .ecg{
-      min-width: 240px;
-      padding:10px 12px;
-      border-radius: 14px;
-      background: rgba(9,18,28,.55);
-      border: 1px solid rgba(45,255,216,.18);
-      box-shadow: 0 18px 55px rgba(0,0,0,.35);
+    .rows{
+      display:grid;
+      gap: 10px;
       position:relative;
-      overflow:hidden;
+      z-index:1;
     }
-    .ecgTop{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:10px;
-      margin-bottom:10px;
-      color: var(--muted);
-      font-weight:900;
-      font-size:12px;
-    }
-    .ecgLine{
-      width:100%;
-      height:34px;
-      border-radius: 12px;
-      background: rgba(0,0,0,.18);
-      border: 1px solid rgba(255,255,255,.06);
-      position:relative;
-      overflow:hidden;
-    }
-    .ecgSvg{
-      position:absolute; inset:0;
-      filter: drop-shadow(0 0 12px rgba(45,255,216,.35));
-      opacity:.9;
-    }
-    .pulseGlow{
-      position:absolute; inset:-40%;
-      background: radial-gradient(circle at 60% 50%, rgba(45,255,216,.20), transparent 55%);
-      animation: drift 6s linear infinite;
-      opacity:.7;
-    }
-    @keyframes drift{
-      0%{transform: translateX(-8%)}
-      100%{transform: translateX(8%)}
-    }
-
-    /* Tabs row + search like screenshot */
-    .tabsRow{
-      padding: 10px 18px 16px;
-      position:relative;
-    }
-    .tabs{
-      display:flex; flex-wrap:wrap; gap:10px;
-      margin-bottom: 12px;
-    }
-    .tab{
-      border-radius: 999px;
-      padding: 9px 12px;
-      font-weight:900;
-      font-size:12px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      color: var(--muted);
-      cursor:pointer;
-      user-select:none;
-      transition: transform .12s ease, border-color .12s ease, background .12s ease, color .12s ease;
-    }
-    .tab:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.20)}
-    .tab.active{
-      background: rgba(45,255,216,.10);
-      border-color: rgba(45,255,216,.22);
-      color: var(--text);
-      box-shadow: 0 12px 34px rgba(0,0,0,.25);
-    }
-
-    .searchWrap{
-      display:flex; align-items:center; gap:10px;
+    .row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
       padding: 10px 12px;
       border-radius: 14px;
-      background: rgba(0,0,0,.18);
-      border: 1px solid rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.15);
+    }
+    .k{
       color: var(--muted);
-      max-width: 780px;
+      font-weight: 900;
+      font-size: 12px;
     }
-    .searchWrap .sicon{opacity:.85}
-    .search{
-      flex:1;
-      background: transparent;
-      border:0;
-      outline:none;
-      color: var(--text);
-      font-weight:700;
-      font-size:13px;
+    .v{
+      font-weight: 900;
+      font-size: 12px;
+      color: var(--mint);
     }
-    .search::placeholder{color: rgba(155,179,198,.65); font-weight:700}
 
-    /* Content panels */
-    .content{
-      margin-top:18px;
+    .quote{
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      color: var(--muted);
+      line-height: 1.6;
+      position:relative;
+      z-index:1;
+    }
+    .quote strong{color:var(--text)}
+    .quote .q{
+      font-size: 28px;
+      opacity: .25;
+      margin-bottom: -8px;
+    }
+
+    /* Main layout */
+    .grid{
+      margin-top: 18px;
       display:grid;
-      grid-template-columns: 1.3fr .7fr;
-      gap:16px;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
     }
 
     .card{
       border-radius: var(--r);
-      background: var(--panel);
-      border: 1px solid rgba(255,255,255,.10);
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,.11);
       box-shadow: var(--shadow2);
       overflow:hidden;
     }
-    .cardHeader{
-      padding:14px 16px 10px;
-      display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
-      border-bottom: 1px solid rgba(255,255,255,.06);
-      background: rgba(0,0,0,.10);
+    .cardHead{
+      padding: 14px 16px 10px;
+      background: rgba(0,0,0,.12);
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
     }
-    .cardHeader h2{
+    .cardHead h3{
       margin:0;
-      font-size:14px;
-      font-weight:900;
+      font-size: 14px;
+      font-weight: 900;
       letter-spacing:.2px;
-      display:flex; align-items:center; gap:10px;
     }
-    .cardHeader .badge{
-      font-size:11px;
-      font-weight:900;
+    .badge{
+      font-size: 11px;
+      font-weight: 900;
       color: var(--muted);
       border: 1px solid rgba(255,255,255,.10);
-      padding:6px 10px;
+      padding: 6px 10px;
       border-radius: 999px;
       background: rgba(255,255,255,.03);
       white-space:nowrap;
     }
-    .cardBody{padding:14px 16px 16px;}
-    .muted{color: var(--muted); line-height:1.6; font-size:13px; margin:0}
+    .cardBody{padding: 14px 16px 16px;}
+    .p{margin:0; color: var(--muted); line-height: 1.6; font-size: 13px}
 
-    /* Meta grid (Name/Alter/Telefon/Visum) */
-    .metaGrid{
+    .timeline{
+      margin-top: 12px;
       display:grid;
-      grid-template-columns: repeat(2, minmax(0,1fr));
-      gap:10px;
-      margin-top:12px;
+      gap: 10px;
     }
-    .meta{
-      padding:10px 12px;
-      border-radius: 14px;
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.08);
-    }
-    .mk{font-size:11px; font-weight:900; color: var(--muted)}
-    .mv{margin-top:4px; font-weight:900; font-size:13px}
-    .mv a{color:inherit; text-decoration:none; border-bottom:1px dashed rgba(255,255,255,.25)}
-    .mv a:hover{border-bottom-color: rgba(255,255,255,.55)}
-
-    /* Timeline */
-    .timeline{margin-top:12px; display:grid; gap:10px}
     .tl{
-      display:flex; gap:12px; align-items:flex-start;
-      padding:10px 12px;
+      display:flex;
+      gap: 12px;
+      padding: 10px 12px;
       border-radius: 14px;
-      background: rgba(255,255,255,.03);
-      border: 1px solid rgba(255,255,255,.07);
+      background: rgba(0,0,0,.14);
+      border: 1px solid rgba(255,255,255,.08);
+      align-items:flex-start;
     }
-    .dot{
-      width:11px; height:11px; border-radius:50%;
-      background: linear-gradient(180deg, var(--mint), var(--cyan));
-      margin-top:5px; flex:0 0 auto;
-      box-shadow: 0 0 18px rgba(45,255,216,.35);
+    .b{
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      margin-top: 5px;
+      background: linear-gradient(180deg, var(--cyan), var(--violet));
+      box-shadow: 0 0 18px rgba(62,216,255,.28);
+      flex:0 0 auto;
     }
-    .tlt{font-weight:900; font-size:13px}
-    .tld{margin-top:4px; color: var(--muted); font-size:13px; line-height:1.5}
+    .tlt{font-weight: 900; font-size: 13px}
+    .tld{margin-top:4px; color: var(--muted); font-size: 13px; line-height: 1.45}
 
-    /* Pills */
-    .pills{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px}
-    .pill{
-      padding:9px 11px;
+    .pillset{
+      margin-top: 12px;
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+    }
+    .pill2{
+      padding: 9px 11px;
       border-radius: 999px;
-      background: rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.10);
-      font-weight:900;
-      font-size:12px;
+      font-weight: 900;
+      font-size: 12px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.045);
     }
-    .pill.mint{border-color: rgba(45,255,216,.22); background: rgba(45,255,216,.08)}
-    .pill.cyan{border-color: rgba(47,215,255,.22); background: rgba(47,215,255,.08)}
-    .pill.amber{border-color: rgba(255,209,102,.25); background: rgba(255,209,102,.08)}
-    .pill.pink{border-color: rgba(255,60,126,.20); background: rgba(255,60,126,.06)}
+    .pill2.m{border-color: rgba(56,247,198,.22); background: rgba(56,247,198,.08)}
+    .pill2.c{border-color: rgba(62,216,255,.22); background: rgba(62,216,255,.08)}
+    .pill2.v{border-color: rgba(123,97,255,.22); background: rgba(123,97,255,.08)}
+    .pill2.a{border-color: rgba(255,209,102,.22); background: rgba(255,209,102,.08)}
 
-    /* Application textarea */
-    .textbox{
+    /* Roles */
+    .roleGrid{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .tag{
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.14);
+      font-weight: 900;
+      font-size: 12px;
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+    }
+    .mini{
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 14px rgba(62,216,255,.25);
+    }
+    .leadTag .mini{background: var(--mint); box-shadow: 0 0 14px rgba(56,247,198,.25)}
+    .licTag .mini{background: var(--amber); box-shadow: 0 0 14px rgba(255,209,102,.22)}
+    .specTag .mini{background: var(--pink); box-shadow: 0 0 14px rgba(255,62,166,.22)}
+
+    /* Ticket text */
+    .wide{grid-column: 1 / -1;}
+    textarea{
       width:100%;
       min-height: 250px;
       resize: vertical;
       border-radius: 16px;
       border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.20);
-      color:var(--text);
+      background: rgba(0,0,0,.18);
+      color: var(--text);
       padding: 14px;
       font-family: var(--mono);
+      font-size: 12.5px;
       line-height: 1.55;
       outline:none;
-      font-size: 12.5px;
-    }
-    .hint{margin:0 0 10px; color: rgba(155,179,198,.92); font-size:12.5px; line-height:1.5}
-    .cardActions{
-      display:flex; justify-content:flex-end; gap:10px; flex-wrap:wrap;
-      padding: 0 16px 16px;
     }
 
-    /* Roles / References list */
-    .roleSection{
-      display:grid;
-      gap:10px;
-      margin-top:10px;
+    /* Floating buttons (no top boxes) */
+    .fab{
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      z-index: 99;
     }
-    .roleGroupTitle{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:10px;
-      margin-top:6px;
-    }
-    .roleGroupTitle .rg{
-      font-weight:900; font-size:12px; color: var(--muted);
-      display:flex; align-items:center; gap:8px;
-    }
-    .roleGroupTitle .rg span{
-      width:8px; height:8px; border-radius:50%;
-      background: rgba(155,179,198,.65);
-      box-shadow:none;
-    }
-    .roleGrid{
-      display:flex; flex-wrap:wrap; gap:8px;
-    }
-    .tag{
-      padding:8px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      font-weight:900;
-      font-size:12px;
+    .fab button{
+      border: 1px solid rgba(255,255,255,.13);
+      background: rgba(255,255,255,.06);
       color: var(--text);
-      display:inline-flex; align-items:center; gap:8px;
+      border-radius: 16px;
+      padding: 12px 14px;
+      font-weight: 900;
+      cursor:pointer;
+      box-shadow: var(--shadow2);
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      transition: transform .12s ease, border-color .12s ease, background .12s ease;
     }
-    .tag .mini{
-      width:8px; height:8px; border-radius:50%;
-      background: rgba(47,215,255,.65);
-      box-shadow: 0 0 14px rgba(47,215,255,.25);
+    .fab button:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.25)}
+    .fab button.primary{
+      background: linear-gradient(135deg, rgba(62,216,255,.12), rgba(255,62,166,.10));
+      border-color: rgba(62,216,255,.22);
     }
-    .tag.lead .mini{background: rgba(45,255,216,.8)}
-    .tag.lic .mini{background: rgba(255,209,102,.85)}
-    .tag.spec .mini{background: rgba(255,60,126,.70)}
-    .tag.soft .mini{background: rgba(155,179,198,.70)}
-
-    /* Footer */
-    .footer{
-      margin-top: 16px;
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-      color: var(--muted);
-      font-size: 12px;
-      opacity:.9;
-    }
-    .footer a{color:inherit; text-decoration:none; border-bottom: 1px dashed rgba(255,255,255,.22)}
-    .footer a:hover{border-bottom-color: rgba(255,255,255,.55)}
 
     /* Toast */
     .toast{
       position: fixed;
-      bottom: 18px;
       left: 50%;
+      bottom: 22px;
       transform: translateX(-50%);
-      background: rgba(6,12,20,.88);
+      background: rgba(10,14,28,.88);
       border: 1px solid rgba(255,255,255,.12);
-      color: var(--text);
       padding: 10px 12px;
       border-radius: 999px;
+      font-weight: 900;
+      font-size: 12px;
+      color: var(--text);
       box-shadow: var(--shadow2);
       backdrop-filter: blur(10px);
       opacity: 0;
       pointer-events:none;
       transition: opacity .18s ease, transform .18s ease;
-      font-weight:900;
-      font-size: 12px;
+      z-index: 100;
     }
     .toast.show{opacity:1; transform: translateX(-50%) translateY(-4px)}
 
+    footer{
+      margin-top: 18px;
+      color: rgba(164,178,204,.85);
+      font-size: 12px;
+      display:flex;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap:wrap;
+    }
+    footer a{
+      color: inherit;
+      text-decoration:none;
+      border-bottom: 1px dashed rgba(255,255,255,.18);
+    }
+    footer a:hover{border-bottom-color: rgba(255,255,255,.45)}
+
     @media (max-width: 980px){
-      .heroTop{flex-direction:column; align-items:stretch}
-      .ecg{min-width:unset}
-      .content{grid-template-columns:1fr}
-      .brand{min-width:unset}
+      .headline{grid-template-columns: 1fr}
+      .grid{grid-template-columns: 1fr}
+      h1{font-size: 34px}
+      .fab{right: 12px; bottom: 12px}
     }
   </style>
 </head>
 
 <body>
-  <div class="gridbg" aria-hidden="true"></div>
-  <div class="vignette" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
 
-  <header class="topline">
-    <div class="brand">
-      <div class="logo" aria-hidden="true"><span>✚</span></div>
-      <div class="brandtxt">
-        <div class="t1">LSMD • Bewerbungsakte</div>
-        <div class="t2">Retro Roleplay • Qualität, Struktur & Professionalität</div>
-      </div>
-    </div>
+  <main class="wrap">
+    <section class="headline" aria-label="Titelbereich">
+      <div class="titleCard">
+        <div class="pill"><span class="dot"></span> Einsatzbereit • 24/7</div>
+        <h1>Bewerbung für das <span class="grad">LSMD</span></h1>
+        <p class="lead">
+          Strukturiert, belastbar und teamorientiert – mit Führungserfahrung im medizinischen Dienst.
+          Fokus auf saubere Abläufe, respektvolle Kommunikation und zuverlässige Schichten.
+        </p>
 
-    <div class="sysbadge" title="Systemstatus">
-      <span class="sysdot"></span>
-      MEDICAL SYSTEM • ONLINE
-    </div>
-
-    <div class="actions">
-      <button class="btn ghost" id="copyBtn" type="button">
-        <span class="ic">⎘</span>
-        <span>Bewerbung kopieren</span>
-      </button>
-      <button class="btn primary" id="downloadBtn" type="button">
-        <span class="ic">⬇</span>
-        <span>Als .txt speichern</span>
-      </button>
-    </div>
-  </header>
-
-  <main class="container">
-    <section class="hero" aria-label="Bewerbungsübersicht">
-      <div class="heroTop">
-        <div class="heroTitle">
-          <div class="docIcon" aria-hidden="true">▦</div>
-          <div>
-            <h1>LSMD Bewerbung – Jeff Jeremain</h1>
-            <p>
-              Diese Akte dient der Vorstellung meiner Person, Erfahrung und Motivation.
-              Fokus: <b>saubere Abläufe</b>, <b>klare Kommunikation</b> und <b>professionelles Medical-RP</b>.
-            </p>
-          </div>
+        <div class="miniMeta" aria-label="Kurzdaten">
+          <span class="chip">Name: <b>Jeff Jeremain</b></span>
+          <span class="chip">Alter: <b>36 Jahre</b></span>
+          <span class="chip">Telefon: <b>6029103965</b></span>
+          <span class="chip">Visum: <b>14</b></span>
         </div>
 
-        <div class="ecg" aria-label="ECG Widget">
-          <div class="ecgTop">
-            <span>Vital Monitor</span>
-            <span style="color:var(--ok)">STABLE</span>
-          </div>
-          <div class="ecgLine">
-            <div class="pulseGlow" aria-hidden="true"></div>
-            <svg class="ecgSvg" viewBox="0 0 300 60" preserveAspectRatio="none" aria-hidden="true">
-              <path d="M0,35 L40,35 L55,35 L65,15 L75,52 L88,35 L120,35 L140,35 L150,35 L160,18 L172,52 L186,35 L220,35 L260,35 L300,35"
-                    fill="none" stroke="rgba(45,255,216,.95)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M0,35 L40,35 L55,35 L65,15 L75,52 L88,35 L120,35 L140,35 L150,35 L160,18 L172,52 L186,35 L220,35 L260,35 L300,35"
-                    fill="none" stroke="rgba(47,215,255,.55)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".65"/>
-            </svg>
-          </div>
+        <div class="miniMeta" aria-label="Skills">
+          <span class="chip">🚑 Einsatz & Transport</span>
+          <span class="chip">🫀 Triage & Erstversorgung</span>
+          <span class="chip">📋 Dokumentation</span>
+          <span class="chip">👥 Teamführung</span>
         </div>
       </div>
 
-      <div class="tabsRow">
-        <div class="tabs" role="tablist" aria-label="Sektionen">
-          <div class="tab active" data-tab="overview" role="tab" tabindex="0">Allgemeine Daten</div>
-          <div class="tab" data-tab="experience" role="tab" tabindex="0">Vorerfahrung</div>
-          <div class="tab" data-tab="motivation" role="tab" tabindex="0">Motivation</div>
-          <div class="tab" data-tab="strengths" role="tab" tabindex="0">Stärken/Schwächen</div>
-          <div class="tab" data-tab="references" role="tab" tabindex="0">Referenzen (Rollen)</div>
-          <div class="tab" data-tab="ticket" role="tab" tabindex="0">Ticket-Text</div>
+      <aside class="side" aria-label="Statusboard">
+        <h2>Statusboard</h2>
+        <div class="rows">
+          <div class="row"><span class="k">Funk</span><span class="v">Online</span></div>
+          <div class="row"><span class="k">Bereitschaft</span><span class="v">Hoch</span></div>
+          <div class="row"><span class="k">Stressresistenz</span><span class="v">Stabil</span></div>
+          <div class="row"><span class="k">Teamwork</span><span class="v">Sehr gut</span></div>
         </div>
 
-        <div class="searchWrap" aria-label="Suche">
-          <span class="sicon" aria-hidden="true">🔎</span>
-          <input class="search" id="search" type="search"
-                 placeholder="Durchsuche Akte (z.B. Führung, Oberarzt, Funk, Latenight V, Visum 14 …)" />
+        <div class="quote">
+          <div class="q">“</div>
+          Ruhig bleiben, sauber kommunizieren, sauber handeln — egal wie laut es wird.<br>
+          <strong>— Bewerber</strong>
         </div>
-      </div>
+      </aside>
     </section>
 
-    <section class="content" aria-label="Bewerbungsinhalt">
-      <!-- LEFT -->
-      <div style="display:grid; gap:16px;">
-        <!-- Overview -->
-        <article class="card section" data-section="overview">
-          <div class="cardHeader">
-            <h2>🩺 Allgemeine Daten</h2>
-            <div class="badge">Akte • Profil</div>
-          </div>
-          <div class="cardBody">
-            <p class="muted">
-              Kurzprofil mit den wichtigsten Angaben zur Bewerbung.
-            </p>
+    <section class="grid" aria-label="Inhalte">
+      <article class="card">
+        <div class="cardHead">
+          <h3>MD-Vorerfahrung</h3>
+          <span class="badge">Latenight V</span>
+        </div>
+        <div class="cardBody">
+          <p class="p">
+            Ich war auf dem Server <b>Latenight V</b> im medizinischen Dienst tätig – dort <b>als Führungskraft</b>.
+            Ich kenne strukturierte Abläufe, Einsatzkoordination, Funkdisziplin sowie saubere Übergaben und Dokumentation.
+          </p>
 
-            <div class="metaGrid">
-              <div class="meta">
-                <div class="mk">Name</div>
-                <div class="mv">Jeff Jeremain</div>
-              </div>
-              <div class="meta">
-                <div class="mk">Alter</div>
-                <div class="mv">36 Jahre</div>
-              </div>
-              <div class="meta">
-                <div class="mk">Telefonnummer</div>
-                <div class="mv"><a href="tel:6029103965">6029103965</a></div>
-              </div>
-              <div class="meta">
-                <div class="mk">Visum Stufe</div>
-                <div class="mv">14</div>
+          <div class="timeline">
+            <div class="tl">
+              <span class="b"></span>
+              <div>
+                <div class="tlt">Führung / Koordination</div>
+                <div class="tld">Teamleitung, Eskalationswege, Prioritäten setzen, Schulungen & Standards.</div>
               </div>
             </div>
-
-            <div class="pills">
-              <span class="pill mint">🚑 Einsatz & Transport</span>
-              <span class="pill cyan">📡 Funkdisziplin</span>
-              <span class="pill amber">📋 Dokumentation</span>
-              <span class="pill pink">👥 Führung & Struktur</span>
+            <div class="tl">
+              <span class="b"></span>
+              <div>
+                <div class="tlt">Einsatzroutine</div>
+                <div class="tld">Lageeinschätzung, klare Kommunikation, sichere Entscheidungen im Stress.</div>
+              </div>
             </div>
-          </div>
-        </article>
-
-        <!-- Experience -->
-        <article class="card section" data-section="experience" style="display:none;">
-          <div class="cardHeader">
-            <h2>🧾 MD-Vorerfahrung</h2>
-            <div class="badge">Latenight V • LSMD</div>
-          </div>
-          <div class="cardBody">
-            <p class="muted">
-              Ich war auf dem Server <b>Latenight V</b> im medizinischen Dienst tätig – dort <b>als Führungskraft</b>.
-              Ich kenne strukturierte Abläufe, Einsatzkoordination, saubere Übergaben und Dokumentation.
-            </p>
-
-            <div class="timeline">
-              <div class="tl">
-                <div class="dot"></div>
-                <div>
-                  <div class="tlt">Führung / Koordination</div>
-                  <div class="tld">Teamleitung, Eskalationswege, Prioritäten setzen, Standards einhalten.</div>
-                </div>
-              </div>
-              <div class="tl">
-                <div class="dot"></div>
-                <div>
-                  <div class="tlt">Einsatzroutine</div>
-                  <div class="tld">Lageeinschätzung, sichere Entscheidungen, ruhige Kommunikation im Stress.</div>
-                </div>
-              </div>
-              <div class="tl">
-                <div class="dot"></div>
-                <div>
-                  <div class="tlt">Dokumentation</div>
-                  <div class="tld">Berichte/Übergaben sauber und nachvollziehbar (RP-konform).</div>
-                </div>
+            <div class="tl">
+              <span class="b"></span>
+              <div>
+                <div class="tlt">Dokumentation</div>
+                <div class="tld">Berichte/Übergaben sauber und nachvollziehbar (RP-konform).</div>
               </div>
             </div>
           </div>
-        </article>
+        </div>
+      </article>
 
-        <!-- Motivation -->
-        <article class="card section" data-section="motivation" style="display:none;">
-          <div class="cardHeader">
-            <h2>💬 Motivation</h2>
-            <div class="badge">Warum LSMD?</div>
+      <article class="card">
+        <div class="cardHead">
+          <h3>Motivation</h3>
+          <span class="badge">Warum LSMD?</span>
+        </div>
+        <div class="cardBody">
+          <p class="p">
+            Ich möchte ins LSMD, weil ich professionelles RP mit klaren Standards mag: ruhige Kommunikation,
+            saubere Abläufe und respektvollen Umgang. Ich will das Team aktiv unterstützen, Verantwortung übernehmen
+            und langfristig zuverlässig Schichten fahren.
+          </p>
+
+          <div class="pillset">
+            <span class="pill2 m">Qualität im RP</span>
+            <span class="pill2 c">Teamarbeit</span>
+            <span class="pill2 v">Verlässlichkeit</span>
+            <span class="pill2 a">Struktur</span>
           </div>
-          <div class="cardBody">
-            <p class="muted">
-              Ich möchte ins LSMD, weil ich professionelles RP mit klaren Standards mag:
-              ruhige Kommunikation, saubere Abläufe und respektvollen Umgang.
-              Ich will das Team aktiv unterstützen, Verantwortung übernehmen und langfristig zuverlässig Schichten fahren.
-            </p>
+        </div>
+      </article>
 
-            <div class="pills">
-              <span class="pill mint">Qualität im RP</span>
-              <span class="pill cyan">Teamarbeit</span>
-              <span class="pill amber">Verlässlichkeit</span>
-              <span class="pill pink">Struktur mit aufbauen</span>
-            </div>
+      <article class="card">
+        <div class="cardHead">
+          <h3>Stärken</h3>
+          <span class="badge">Skills</span>
+        </div>
+        <div class="cardBody">
+          <div class="pillset" style="margin-top:0">
+            <span class="pill2 m">Ruhig unter Druck</span>
+            <span class="pill2 c">Klar in Kommunikation</span>
+            <span class="pill2 a">Saubere Dokumentation</span>
+            <span class="pill2 v">Führungserfahrung</span>
+            <span class="pill2">Teamorientiert</span>
+            <span class="pill2">Verantwortungsbewusst</span>
           </div>
-        </article>
+        </div>
+      </article>
 
-        <!-- Strengths -->
-        <article class="card section" data-section="strengths" style="display:none;">
-          <div class="cardHeader">
-            <h2>🧠 Stärken & Schwächen</h2>
-            <div class="badge">Selbstreflexion</div>
-          </div>
-          <div class="cardBody">
-            <p class="muted"><b>Stärken</b></p>
-            <div class="pills" style="margin-top:10px">
-              <span class="pill mint">Ruhig unter Druck</span>
-              <span class="pill cyan">Klar in Kommunikation</span>
-              <span class="pill amber">Saubere Dokumentation</span>
-              <span class="pill pink">Führungserfahrung</span>
-              <span class="pill">Teamorientiert</span>
-              <span class="pill">Verantwortungsbewusst</span>
-            </div>
-
-            <div style="height:10px"></div>
-
-            <p class="muted"><b>Schwächen (woran ich arbeite)</b></p>
-            <div class="timeline" style="margin-top:10px">
-              <div class="tl">
-                <div class="dot" style="background: linear-gradient(180deg, var(--amber), rgba(255,255,255,.25))"></div>
-                <div>
-                  <div class="tlt">Perfektionismus</div>
-                  <div class="tld">Ich setze mir klare Zeitlimits, damit Aufgaben effizient abgeschlossen werden.</div>
-                </div>
-              </div>
-              <div class="tl">
-                <div class="dot" style="background: linear-gradient(180deg, var(--amber), rgba(255,255,255,.25))"></div>
-                <div>
-                  <div class="tlt">Ungeduld bei Chaos</div>
-                  <div class="tld">Ich priorisiere schneller und delegiere früher, damit Ruhe im Ablauf bleibt.</div>
-                </div>
-              </div>
-              <div class="tl">
-                <div class="dot" style="background: linear-gradient(180deg, var(--amber), rgba(255,255,255,.25))"></div>
-                <div>
-                  <div class="tlt">Zu viel allein tragen</div>
-                  <div class="tld">Ich arbeite daran, Aufgaben sauber abzugeben und dem Team mehr zu vertrauen.</div>
-                </div>
+      <article class="card">
+        <div class="cardHead">
+          <h3>Schwächen (woran ich arbeite)</h3>
+          <span class="badge">Reflexion</span>
+        </div>
+        <div class="cardBody">
+          <div class="timeline" style="margin-top:0">
+            <div class="tl">
+              <span class="b" style="background:linear-gradient(180deg,var(--amber),rgba(255,255,255,.35))"></span>
+              <div>
+                <div class="tlt">Perfektionismus</div>
+                <div class="tld">Ich setze mir Zeitlimits, damit Aufgaben effizient abgeschlossen werden.</div>
               </div>
             </div>
-          </div>
-        </article>
-
-        <!-- References / Roles -->
-        <article class="card section" data-section="references" style="display:none;">
-          <div class="cardHeader">
-            <h2>🏷️ Referenzen / Rollen (Alter Server)</h2>
-            <div class="badge">Discord-Rollen • Nachweis</div>
-          </div>
-          <div class="cardBody">
-            <p class="muted">
-              Aus meinem vorherigen MD (Latenight V): Rollenübersicht als Hinweis auf Verantwortung,
-              Leitungs-/Ausbildertätigkeit und Lizenzen.
-            </p>
-
-            <div class="roleSection" id="rolesRoot">
-              <div class="roleGroupTitle">
-                <div class="rg"><span style="background:rgba(45,255,216,.75)"></span> Führung / Leitung</div>
+            <div class="tl">
+              <span class="b" style="background:linear-gradient(180deg,var(--amber),rgba(255,255,255,.35))"></span>
+              <div>
+                <div class="tlt">Ungeduld bei Chaos</div>
+                <div class="tld">Ich priorisiere schneller und delegiere früher, damit Ruhe im Ablauf bleibt.</div>
               </div>
-              <div class="roleGrid">
-                <span class="tag lead"><span class="mini"></span> Abteilungs Director | LSMD</span>
-                <span class="tag lead"><span class="mini"></span> Führungsebene</span>
-                <span class="tag lead"><span class="mini"></span> Abteilungs Direction</span>
-                <span class="tag lead"><span class="mini"></span> Leitungsebene</span>
-                <span class="tag lead"><span class="mini"></span> Head of Prakti/Sani</span>
-                <span class="tag lead"><span class="mini"></span> Personalabteilung | LSMD</span>
-              </div>
-
-              <div class="roleGroupTitle">
-                <div class="rg"><span style="background:rgba(47,215,255,.75)"></span> Rang / Medizin</div>
-              </div>
-              <div class="roleGrid">
-                <span class="tag"><span class="mini"></span> Oberarzt | LSMD</span>
-                <span class="tag"><span class="mini"></span> Arzt | LSMD</span>
-                <span class="tag"><span class="mini"></span> Professoren | LSMD</span>
-                <span class="tag"><span class="mini"></span> Prakti/Sani Ausbilder | LSMD</span>
-                <span class="tag spec"><span class="mini"></span> Sr. Prakti/Sani Ausbilder/in | LSMD</span>
-                <span class="tag"><span class="mini"></span> Ausbilder | LSMD</span>
-                <span class="tag spec"><span class="mini"></span> Eventmanager | LSMD</span>
-              </div>
-
-              <div class="roleGroupTitle">
-                <div class="rg"><span style="background:rgba(255,209,102,.9)"></span> Weiterbildung / Lizenzen</div>
-              </div>
-              <div class="roleGrid">
-                <span class="tag lic"><span class="mini"></span> Therapeuten Lizenz</span>
-                <span class="tag lic"><span class="mini"></span> Funkprüfer | LSMD</span>
-                <span class="tag lic"><span class="mini"></span> Osprey Lizenz</span>
-                <span class="tag lic"><span class="mini"></span> Overwatch+ Lizenz</span>
-                <span class="tag lic"><span class="mini"></span> Overwatch Lizenz</span>
-                <span class="tag lic"><span class="mini"></span> U-Boot Lizenz (Urus)</span>
-                <span class="tag lic"><span class="mini"></span> Punkprüfung absolviert</span>
-                <span class="tag lic"><span class="mini"></span> MedicNet Lizenz</span>
-              </div>
-
-              <div class="roleGroupTitle">
-                <div class="rg"><span style="background:rgba(155,179,198,.75)"></span> Sonstiges</div>
-              </div>
-              <div class="roleGrid">
-                <span class="tag soft"><span class="mini"></span> T.M.F | Member</span>
-                <span class="tag soft"><span class="mini"></span> Verwaltung</span>
-                <span class="tag soft"><span class="mini"></span> RANG IM LSMD</span>
-                <span class="tag soft"><span class="mini"></span> Weiterbildung</span>
-                <span class="tag soft"><span class="mini"></span> Besonderes</span>
+            </div>
+            <div class="tl">
+              <span class="b" style="background:linear-gradient(180deg,var(--amber),rgba(255,255,255,.35))"></span>
+              <div>
+                <div class="tlt">Zu viel allein tragen</div>
+                <div class="tld">Ich arbeite daran, Aufgaben sauber abzugeben und dem Team mehr zu vertrauen.</div>
               </div>
             </div>
           </div>
-        </article>
+        </div>
+      </article>
 
-        <!-- Ticket -->
-        <article class="card section" data-section="ticket" style="display:none;">
-          <div class="cardHeader">
-            <h2>🧷 Ticket-Text</h2>
-            <div class="badge">Copy & Paste</div>
+      <article class="card wide">
+        <div class="cardHead">
+          <h3>Referenzen – Discord Rollen (alter Server)</h3>
+          <span class="badge">Nachweis</span>
+        </div>
+        <div class="cardBody">
+          <p class="p">
+            Aus meinem vorherigen MD (Latenight V): Rollenübersicht als Hinweis auf Verantwortung, Leitungs-/Ausbildertätigkeit
+            sowie Weiterbildungen/Lizenzen.
+          </p>
+
+          <div class="roleGrid" aria-label="Führung">
+            <span class="tag leadTag"><span class="mini"></span> Abteilungs Director | LSMD</span>
+            <span class="tag leadTag"><span class="mini"></span> Führungsebene</span>
+            <span class="tag leadTag"><span class="mini"></span> Abteilungs Direction</span>
+            <span class="tag leadTag"><span class="mini"></span> Leitungsebene</span>
+            <span class="tag leadTag"><span class="mini"></span> Head of Prakti/Sani</span>
+            <span class="tag leadTag"><span class="mini"></span> Personalabteilung | LSMD</span>
           </div>
-          <div class="cardBody">
-            <p class="hint">
-              Klick oben auf <b>„Bewerbung kopieren“</b> oder nutze <b>„Als .txt speichern“</b>.
-              Du kannst den Text hier auch noch anpassen.
-            </p>
 
-            <textarea class="textbox" id="applicationText" spellcheck="false">**Bewerbung LSMD – Retro Roleplay**
+          <div class="roleGrid" aria-label="Rang">
+            <span class="tag"><span class="mini"></span> Oberarzt | LSMD</span>
+            <span class="tag"><span class="mini"></span> Arzt | LSMD</span>
+            <span class="tag specTag"><span class="mini"></span> Prakti/Sani Ausbilder | LSMD</span>
+            <span class="tag specTag"><span class="mini"></span> Sr. Prakti/Sani Ausbilder/in | LSMD</span>
+            <span class="tag"><span class="mini"></span> Ausbilder | LSMD</span>
+            <span class="tag specTag"><span class="mini"></span> Eventmanager | LSMD</span>
+            <span class="tag"><span class="mini"></span> Professoren | LSMD</span>
+          </div>
+
+          <div class="roleGrid" aria-label="Lizenzen">
+            <span class="tag licTag"><span class="mini"></span> Therapeuten Lizenz</span>
+            <span class="tag licTag"><span class="mini"></span> Funkprüfer | LSMD</span>
+            <span class="tag licTag"><span class="mini"></span> Osprey Lizenz</span>
+            <span class="tag licTag"><span class="mini"></span> Overwatch+ Lizenz</span>
+            <span class="tag licTag"><span class="mini"></span> Overwatch Lizenz</span>
+            <span class="tag licTag"><span class="mini"></span> U-Boot Lizenz (Urus)</span>
+            <span class="tag licTag"><span class="mini"></span> Punkprüfung absolviert</span>
+            <span class="tag licTag"><span class="mini"></span> MedicNet Lizenz</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card wide">
+        <div class="cardHead">
+          <h3>Bewerbungstext (für Ticket / Discord)</h3>
+          <span class="badge">Copy & Paste</span>
+        </div>
+        <div class="cardBody">
+<textarea id="applicationText" spellcheck="false">**Bewerbung LSMD – Retro Roleplay**
 
 **Name:** Jeff Jeremain
 **Alter:** 36
@@ -825,93 +663,25 @@ Ich möchte ins LSMD, weil ich professionelles RP mit klaren Standards mag: ruhi
 - Lizenzen/Weiterbildung (Funkprüfer, MedicNet, Overwatch, Osprey, u.a.)
 
 Ich freue mich auf ein Gespräch / eine Probeschicht.</textarea>
-          </div>
-          <div class="cardActions">
-            <button class="btn ghost" id="copyBtn2" type="button"><span class="ic">⎘</span><span>Text kopieren</span></button>
-            <button class="btn primary" id="downloadBtn2" type="button"><span class="ic">⬇</span><span>TXT speichern</span></button>
-          </div>
-        </article>
-      </div>
-
-      <!-- RIGHT -->
-      <aside style="display:grid; gap:16px;">
-        <article class="card">
-          <div class="cardHeader">
-            <h2>📟 Statusboard</h2>
-            <div class="badge">LIVE</div>
-          </div>
-          <div class="cardBody">
-            <div class="timeline" style="margin-top:0">
-              <div class="tl">
-                <div class="dot"></div>
-                <div>
-                  <div class="tlt">Bereitschaft</div>
-                  <div class="tld">Hoch • zuverlässig & langfristig</div>
-                </div>
-              </div>
-              <div class="tl">
-                <div class="dot"></div>
-                <div>
-                  <div class="tlt">Kommunikation</div>
-                  <div class="tld">Ruhig • klar • respektvoll</div>
-                </div>
-              </div>
-              <div class="tl">
-                <div class="dot"></div>
-                <div>
-                  <div class="tlt">Struktur</div>
-                  <div class="tld">Abläufe • Übergaben • Dokumentation</div>
-                </div>
-              </div>
-              <div class="tl">
-                <div class="dot"></div>
-                <div>
-                  <div class="tlt">Führung</div>
-                  <div class="tld">Erfahrung aus MD-Leitung (Latenight V)</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="pills">
-              <span class="pill mint">Visum 14</span>
-              <span class="pill cyan">MD-Erfahrung</span>
-              <span class="pill amber">Lizenzen</span>
-              <span class="pill pink">Leadership</span>
-            </div>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="cardHeader">
-            <h2>🧩 Quick Actions</h2>
-            <div class="badge">Tools</div>
-          </div>
-          <div class="cardBody">
-            <p class="muted">
-              Für Discord-Tickets: am besten den Ticket-Text kopieren und direkt einfügen.
-              Über die Tabs kannst du schnell zwischen Bereichen wechseln.
-            </p>
-            <div class="pills">
-              <span class="pill">Tabs nutzen</span>
-              <span class="pill">Suche nutzen</span>
-              <span class="pill">Copy/Paste</span>
-            </div>
-          </div>
-        </article>
-      </aside>
+        </div>
+      </article>
     </section>
 
-    <div class="footer">
-      <div>© <span id="year"></span> Jeff Jeremain • LSMD Bewerbungsakte</div>
+    <footer>
+      <div>© <span id="year"></span> Jeff Jeremain • LSMD Bewerbung</div>
       <div><a href="#" id="top">nach oben ↑</a></div>
-    </div>
+    </footer>
   </main>
+
+  <div class="fab" aria-label="Aktionen">
+    <button class="primary" id="copyBtn"><span>⎘</span> Bewerbung kopieren</button>
+    <button id="dlBtn"><span>⬇</span> TXT speichern</button>
+  </div>
 
   <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
   <script>
     const $ = (s) => document.querySelector(s);
-    const $$ = (s) => Array.from(document.querySelectorAll(s));
 
     const toast = (msg) => {
       const el = $("#toast");
@@ -921,25 +691,17 @@ Ich freue mich auf ein Gespräch / eine Probeschicht.</textarea>
       toast._t = setTimeout(() => el.classList.remove("show"), 1600);
     };
 
-    const copyText = async (text) => {
-      try {
-        await navigator.clipboard.writeText(text);
-        return true;
-      } catch {
-        return false;
-      }
-    };
-
-    const copyApplication = async () => {
+    const copyApp = async () => {
       const ta = $("#applicationText");
       const txt = ta.value.trim();
-      const ok = await copyText(txt);
-      if (ok) return toast("Bewerbung kopiert ✅");
-
-      // fallback
-      ta.focus(); ta.select();
-      document.execCommand("copy");
-      toast("Bewerbung kopiert ✅");
+      try{
+        await navigator.clipboard.writeText(txt);
+        toast("Bewerbung kopiert ✅");
+      }catch{
+        ta.focus(); ta.select();
+        document.execCommand("copy");
+        toast("Bewerbung kopiert ✅");
+      }
     };
 
     const downloadTxt = () => {
@@ -956,94 +718,18 @@ Ich freue mich auf ein Gespräch / eine Probeschicht.</textarea>
       toast("TXT gespeichert ⬇");
     };
 
-    const showSection = (name) => {
-      $$(".tab").forEach(t => t.classList.toggle("active", t.dataset.tab === name));
-      $$(".section").forEach(sec => {
-        sec.style.display = (sec.dataset.section === name) ? "" : "none";
-      });
-      // reset search when switching (optional feel like real UI)
-      // $("#search").value = "";
-      toast("Sektion: " + (name === "overview" ? "Allgemeine Daten" :
-                          name === "experience" ? "Vorerfahrung" :
-                          name === "motivation" ? "Motivation" :
-                          name === "strengths" ? "Stärken/Schwächen" :
-                          name === "references" ? "Referenzen" : "Ticket-Text"));
-    };
-
-    const normalize = (s) => (s || "").toLowerCase().trim();
-
-    const applySearch = (q) => {
-      q = normalize(q);
-      // filter in current section only (feels like the screenshot rulebook search)
-      const activeTab = $(".tab.active")?.dataset.tab || "overview";
-      const activeSection = $(`.section[data-section="${activeTab}"]`);
-      if (!activeSection) return;
-
-      // Show all if empty
-      if (!q){
-        // Unhide any filtered tags/blocks
-        activeSection.querySelectorAll("[data-filter]").forEach(el => el.style.display = "");
-        // For roles: show all tags
-        activeSection.querySelectorAll(".tag").forEach(el => el.style.display = "");
-        return;
-      }
-
-      // Generic filter: anything with data-filter
-      activeSection.querySelectorAll("[data-filter]").forEach(el => {
-        const hay = normalize(el.getAttribute("data-filter"));
-        el.style.display = hay.includes(q) ? "" : "none";
-      });
-
-      // Roles tags filter
-      activeSection.querySelectorAll(".tag").forEach(el => {
-        const hay = normalize(el.textContent);
-        el.style.display = hay.includes(q) ? "" : "none";
-      });
-    };
-
     (() => {
       $("#year").textContent = new Date().getFullYear();
 
-      // wire tab clicks
-      $$(".tab").forEach(t => {
-        t.addEventListener("click", () => showSection(t.dataset.tab));
-        t.addEventListener("keydown", (e) => {
-          if (e.key === "Enter" || e.key === " ") showSection(t.dataset.tab);
-        });
-      });
+      // Hook both copy buttons (same id in DOM is bad; so target the floating one)
+      $("#copyBtn").addEventListener("click", copyApp);
+      $("#dlBtn").addEventListener("click", downloadTxt);
 
-      // buttons
-      $("#copyBtn").addEventListener("click", copyApplication);
-      $("#copyBtn2").addEventListener("click", copyApplication);
-      $("#downloadBtn").addEventListener("click", downloadTxt);
-      $("#downloadBtn2").addEventListener("click", downloadTxt);
-
-      // search
-      $("#search").addEventListener("input", (e) => applySearch(e.target.value));
-
-      // top
       $("#top").addEventListener("click", (e) => {
         e.preventDefault();
         window.scrollTo({ top: 0, behavior: "smooth" });
       });
-
-      // Add data-filter to some key blocks for nicer searching
-      // (keeps it simple but effective)
-      const attach = (sel, text) => {
-        const el = document.querySelector(sel);
-        if (el) el.setAttribute("data-filter", text);
-      };
-      attach('.section[data-section="overview"]', "jeff jeremain 36 6029103965 visum 14 allgemeine daten");
-      attach('.section[data-section="experience"]', "latenight v führungskraft einsatzkoordination funk disziplin dokumentation");
-      attach('.section[data-section="motivation"]', "warum lsmd retro roleplay motivation standards teamarbeit struktur");
-      attach('.section[data-section="strengths"]', "stärken schwächen belastbar kommunikation dokumentation perfektionismus delegieren");
-      attach('.section[data-section="references"]', "discord rollen referenzen abteilungs director head of prakti sani oberarzt ausbilder medicnet overwatch osprey funkprüfer");
-      attach('.section[data-section="ticket"]', "ticket text bewerbung kopieren speichern");
-
-      // initial
-      showSection("overview");
     })();
   </script>
 </body>
 </html>
-
