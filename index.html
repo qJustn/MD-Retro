@@ -5,10 +5,308 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="theme-color" content="#0b1324" />
   <title>LSMD Bewerbung – Jeff Jeremain</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    :root{
+      --bg: #071021;
+      --bg2:#0b1324;
+      --card:#0c1a33cc;
+      --stroke:#1a2f55;
+      --text:#eaf2ff;
+      --muted:#a9b8d3;
+      --accent:#4dd6ff;
+      --accent2:#ff3c7e;
+      --ok:#55f5b1;
+      --warn:#ffd166;
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --radius: 18px;
+    }
+
+    [data-theme="light"]{
+      --bg:#f5f8ff;
+      --bg2:#ffffff;
+      --card:#ffffffcc;
+      --stroke:#d6e3ff;
+      --text:#0b1220;
+      --muted:#4c5c77;
+      --accent:#006dff;
+      --accent2:#ff2a6d;
+      --shadow: 0 18px 60px rgba(0,0,0,.12);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1000px 700px at 10% 10%, rgba(77,214,255,.18), transparent 60%),
+                  radial-gradient(900px 700px at 90% 20%, rgba(255,60,126,.12), transparent 55%),
+                  linear-gradient(180deg, var(--bg), var(--bg2));
+      color:var(--text);
+      overflow-x:hidden;
+    }
+
+    a{color:inherit}
+    .container{max-width:1100px;margin:0 auto;padding:22px}
+
+    .bg-grid{
+      position:fixed;inset:0;
+      background-image: linear-gradient(to right, rgba(255,255,255,.05) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 54px 54px;
+      opacity:.22;
+      pointer-events:none;
+      mix-blend-mode: overlay;
+    }
+
+    .bg-glow{
+      position:fixed;inset:-20%;
+      background: radial-gradient(circle at 50% 30%, rgba(77,214,255,.20), transparent 45%);
+      filter: blur(25px);
+      pointer-events:none;
+    }
+
+    .topbar{
+      position:sticky;top:0;z-index:50;
+      display:flex;align-items:center;justify-content:space-between;
+      gap:16px;
+      padding:14px 22px;
+      backdrop-filter: blur(14px);
+      background: rgba(7,16,33,.55);
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+
+    [data-theme="light"] .topbar{
+      background: rgba(245,248,255,.70);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand__mark{
+      width:44px;height:44px;border-radius:14px;
+      background: linear-gradient(135deg, rgba(77,214,255,.18), rgba(255,60,126,.12));
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow: 0 12px 28px rgba(0,0,0,.25);
+      display:grid;place-items:center;
+      position:relative;
+    }
+    .brand__mark .cross{font-weight:800;letter-spacing:.5px}
+    .brand__mark .pulse{
+      position:absolute;inset:0;border-radius:14px;
+      box-shadow: 0 0 0 0 rgba(77,214,255,.35);
+      animation: pulse 2.4s infinite;
+    }
+    @keyframes pulse{
+      0%{box-shadow:0 0 0 0 rgba(77,214,255,.35)}
+      70%{box-shadow:0 0 0 16px rgba(77,214,255,0)}
+      100%{box-shadow:0 0 0 0 rgba(77,214,255,0)}
+    }
+    .brand__title{font-weight:800;font-size:14px;letter-spacing:.2px}
+    .brand__subtitle{font-size:12px;color:var(--muted);margin-top:2px}
+
+    .topbar__actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+
+    .btn{
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+      padding:10px 12px;
+      border-radius: 14px;
+      font-weight:700;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .btn:hover{transform: translateY(-1px);border-color: rgba(255,255,255,.22)}
+    .btn:active{transform: translateY(0px)}
+    .btn--primary{
+      background: linear-gradient(135deg, rgba(77,214,255,.25), rgba(255,60,126,.16));
+      border-color: rgba(77,214,255,.35);
+    }
+    .btn--secondary{
+      background: rgba(77,214,255,.10);
+      border-color: rgba(77,214,255,.24);
+    }
+    .btn--ghost{
+      background: transparent;
+      border-color: rgba(255,255,255,.10);
+    }
+    .btn__icon{font-size:14px;opacity:.95}
+    .btn__label{font-size:13px}
+
+    .hero{
+      display:grid;
+      grid-template-columns: 1.35fr .65fr;
+      gap:16px;
+      margin-top: 18px;
+    }
+
+    .hero__card, .sidecard, .card{
+      background: var(--card);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .hero__card{padding:18px}
+    .hero__badge{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:8px 12px;border-radius:999px;
+      background: rgba(85,245,177,.10);
+      border:1px solid rgba(85,245,177,.22);
+      font-weight:800;font-size:12px;color: var(--ok);
+    }
+    .hero__badge .dot{width:8px;height:8px;border-radius:50%;background: var(--ok);box-shadow:0 0 18px rgba(85,245,177,.55)}
+    .hero__title{margin:14px 0 6px;font-size:36px;letter-spacing:-.8px}
+    .hero__lead{margin:0 0 14px;color:var(--muted);line-height:1.5}
+    .grad{
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+    }
+
+    .hero__meta{
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap:10px;
+      margin-top:14px;
+    }
+    .meta{
+      padding:10px 12px;border-radius:14px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .meta__k{font-size:11px;color:var(--muted);font-weight:700}
+    .meta__v{margin-top:4px;font-size:13px;font-weight:800}
+    .meta__v a{text-decoration:none;border-bottom:1px dashed rgba(255,255,255,.25)}
+    .meta__v a:hover{border-bottom-color: rgba(255,255,255,.5)}
+
+    .hero__chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+    .chip{
+      padding:8px 10px;border-radius:999px;
+      background: rgba(77,214,255,.08);
+      border:1px solid rgba(77,214,255,.18);
+      font-weight:700;font-size:12px;color: var(--text);
+    }
+
+    .sidecard{padding:16px}
+    .sidecard__title{font-weight:900;letter-spacing:.3px}
+    .status{margin-top:12px;display:grid;gap:10px}
+    .status__row{display:flex;justify-content:space-between;gap:12px;padding:10px 12px;border-radius:14px;background: rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)}
+    .status__k{color:var(--muted);font-weight:800;font-size:12px}
+    .status__v{font-weight:900;font-size:12px}
+    .status__v.ok{color:var(--ok)}
+
+    .divider{height:1px;background: rgba(255,255,255,.10);margin:14px 0}
+    .quote{position:relative;padding:10px 4px 0}
+    .quote__icon{font-size:42px;opacity:.25;line-height:1;margin-bottom:-14px}
+    .quote__text{margin:0;color:var(--muted);line-height:1.55}
+    .quote__by{margin-top:10px;font-weight:900;font-size:12px;color:var(--text);opacity:.9}
+
+    .grid{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap:16px;
+    }
+    .card{padding:16px}
+    .card__title{margin:0 0 8px;font-size:16px;font-weight:900;letter-spacing:.2px}
+    .card__text{margin:0;color:var(--muted);line-height:1.6}
+    .card__hint{margin:0 0 10px;color:var(--muted);font-size:13px;line-height:1.5}
+
+    .timeline{margin-top:12px;display:grid;gap:12px}
+    .tl{display:flex;gap:12px;align-items:flex-start}
+    .tl__dot{
+      width:12px;height:12px;border-radius:50%;
+      background: linear-gradient(180deg, var(--accent), var(--accent2));
+      margin-top:4px;flex:0 0 auto;
+      box-shadow: 0 0 18px rgba(77,214,255,.35);
+    }
+    .tl__title{font-weight:900;font-size:13px}
+    .tl__desc{margin-top:4px;color:var(--muted);font-size:13px;line-height:1.5}
+
+    .list{margin-top:12px;display:grid;gap:10px}
+    .li{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:14px;background: rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)}
+    .li__icon{font-weight:900}
+    .li__icon.warn{color:var(--warn)}
+
+    .pillgrid{margin-top:10px;display:flex;flex-wrap:wrap;gap:10px}
+    .pill{
+      padding:10px 12px;border-radius:999px;
+      background: rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.10);
+      font-weight:800;font-size:12px;
+    }
+
+    .card--wide{grid-column: 1 / -1}
+    .textbox{
+      width:100%;
+      min-height: 240px;
+      resize: vertical;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      color:var(--text);
+      padding: 14px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      line-height: 1.5;
+      outline: none;
+    }
+    [data-theme="light"] .textbox{
+      background: rgba(0,0,0,.04);
+    }
+
+    .card__actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;justify-content:flex-end}
+
+    .footer{
+      margin: 18px 0 6px;
+      display:flex;justify-content:space-between;align-items:center;gap:12px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .footer__badge{
+      padding:6px 10px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      font-weight: 900;
+    }
+    .footer__link{text-decoration:none;border-bottom:1px dashed rgba(255,255,255,.25)}
+    .footer__link:hover{border-bottom-color: rgba(255,255,255,.5)}
+    .footer__left{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .footer__muted{opacity:.85}
+
+    .toast{
+      position: fixed;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(10,20,40,.88);
+      border: 1px solid rgba(255,255,255,.12);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      pointer-events:none;
+      transition: opacity .18s ease, transform .18s ease;
+    }
+    .toast.show{opacity:1;transform: translateX(-50%) translateY(-4px)}
+
+    @media (max-width: 980px){
+      .hero{grid-template-columns: 1fr}
+      .hero__meta{grid-template-columns: repeat(2, minmax(0,1fr))}
+      .grid{grid-template-columns: 1fr}
+      .hero__title{font-size:30px}
+    }
+  </style>
 </head>
 
 <body>
@@ -70,7 +368,7 @@
           </div>
           <div class="meta">
             <div class="meta__k">Visum Stufe</div>
-            <div class="meta__v">nicht angegeben</div>
+            <div class="meta__v">14</div>
           </div>
         </div>
 
@@ -215,7 +513,7 @@
 **Name:** Jeff Jeremain
 **Alter:** 36
 **Telefonnummer:** 6029103965
-**Visum Stufe:** (bitte eintragen)
+**Visum Stufe:** 14
 
 **MD Vorerfahrung:**
 Ich war auf dem Server **Latenight V** im medizinischen Dienst tätig, dort **als Führungskraft**. Ich kenne strukturierte Abläufe, Einsatzkoordination, Funkdisziplin sowie saubere Übergaben und Dokumentation.
@@ -262,6 +560,83 @@ Ich freue mich auf ein Gespräch / Probeschicht.
 
   <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
-  <script src="script.js"></script>
+  <script>
+    const $ = (sel) => document.querySelector(sel);
+
+    const toast = (msg) => {
+      const el = $("#toast");
+      el.textContent = msg;
+      el.classList.add("show");
+      window.clearTimeout(toast._t);
+      toast._t = window.setTimeout(() => el.classList.remove("show"), 1600);
+    };
+
+    const copyApplication = async () => {
+      const text = $("#applicationText").value.trim();
+      try {
+        await navigator.clipboard.writeText(text);
+        toast("Bewerbung kopiert ✅");
+      } catch {
+        $("#applicationText").select();
+        document.execCommand("copy");
+        toast("Bewerbung kopiert ✅");
+      }
+    };
+
+    const downloadTxt = () => {
+      const text = $("#applicationText").value.trim();
+      const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "LSMD_Bewerbung_Jeff_Jeremain.txt";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      toast("TXT gespeichert ⬇");
+    };
+
+    const setTheme = (theme) => {
+      if (theme) document.documentElement.setAttribute("data-theme", theme);
+      else document.documentElement.removeAttribute("data-theme");
+      localStorage.setItem("md_theme", theme || "dark");
+    };
+
+    const toggleTheme = () => {
+      const current = document.documentElement.getAttribute("data-theme");
+      if (current === "light") {
+        setTheme("dark");
+        $("#themeToggle .btn__icon").textContent = "☾";
+        $("#themeToggle .btn__label").textContent = "Night Shift";
+      } else {
+        setTheme("light");
+        $("#themeToggle .btn__icon").textContent = "☀";
+        $("#themeToggle .btn__label").textContent = "Day Shift";
+      }
+      toast("Theme geändert ✨");
+    };
+
+    (() => {
+      $("#year").textContent = new Date().getFullYear();
+
+      const stored = localStorage.getItem("md_theme");
+      if (stored === "light") {
+        setTheme("light");
+        $("#themeToggle .btn__icon").textContent = "☀";
+        $("#themeToggle .btn__label").textContent = "Day Shift";
+      }
+
+      $("#copyBtn").addEventListener("click", copyApplication);
+      $("#copyBtn2").addEventListener("click", copyApplication);
+      $("#downloadBtn").addEventListener("click", downloadTxt);
+      $("#themeToggle").addEventListener("click", toggleTheme);
+
+      $("#scrollTop").addEventListener("click", (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    })();
+  </script>
 </body>
 </html>
