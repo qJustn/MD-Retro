@@ -2,40 +2,40 @@
 <html lang="de">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0b1220" />
-  <title>LSMD • Bewerbung • Jeff Jeremain</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#07090d" />
+  <title>LSMD • Einsatzakte • Bewerbung</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg0:#070b12;
-      --bg1:#0a1220;
-      --bg2:#08101c;
-      --panel: rgba(255,255,255,.06);
-      --panel2: rgba(255,255,255,.04);
-      --stroke: rgba(255,255,255,.10);
+      --bg:#05070a;
+      --ink:#0b0f14;
+      --paper:#f6f4ee;
+      --paper2:#f1efe8;
+
       --text:#eaf2ff;
-      --muted:#a9b7d2;
+      --muted:#93a5c0;
 
-      --mint:#3af2c7;
-      --teal:#16e0c3;
-      --cyan:#35d6ff;
-      --blue:#4d79ff;
-      --pink:#ff3ea6;
-      --amber:#ffd166;
-      --ok:#54f3b0;
+      --green:#2cffb8;
+      --teal:#22e6d6;
+      --cyan:#46d7ff;
+      --amber:#ffce6b;
+      --red:#ff4d6d;
 
-      --shadow: 0 26px 90px rgba(0,0,0,.55);
-      --shadow2: 0 16px 55px rgba(0,0,0,.35);
+      --line: rgba(255,255,255,.12);
+      --line2: rgba(255,255,255,.08);
 
-      --r: 18px;
-      --r2: 26px;
+      --shadow: 0 24px 70px rgba(0,0,0,.55);
+      --shadow2: 0 14px 36px rgba(0,0,0,.35);
 
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --r:16px;
+      --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+      --ekgSpeed: 1.35s;
     }
 
     *{box-sizing:border-box}
@@ -45,380 +45,84 @@
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:var(--text);
       background:
-        radial-gradient(1200px 800px at 14% 22%, rgba(58,242,199,.12), transparent 60%),
-        radial-gradient(1000px 760px at 86% 18%, rgba(53,214,255,.10), transparent 60%),
-        radial-gradient(900px 700px at 60% 92%, rgba(77,121,255,.10), transparent 60%),
-        linear-gradient(180deg, var(--bg0), var(--bg1) 45%, var(--bg2));
+        radial-gradient(900px 700px at 10% 15%, rgba(46,255,184,.10), transparent 60%),
+        radial-gradient(900px 700px at 90% 25%, rgba(70,215,255,.08), transparent 60%),
+        radial-gradient(900px 700px at 60% 90%, rgba(255,77,109,.06), transparent 60%),
+        linear-gradient(180deg, #04060a, #060a12 55%, #05070a);
       overflow-x:hidden;
     }
 
-    /* subtle animated aurora ribbons = totally different from previous */
-    .aurora{
-      position:fixed; inset:-10%;
-      filter: blur(24px);
-      opacity:.55;
-      pointer-events:none;
-      background:
-        radial-gradient(600px 260px at 18% 20%, rgba(58,242,199,.16), transparent 70%),
-        radial-gradient(520px 240px at 80% 22%, rgba(53,214,255,.12), transparent 70%),
-        radial-gradient(700px 320px at 55% 85%, rgba(255,62,166,.08), transparent 72%);
-      animation: drift 10s ease-in-out infinite alternate;
-    }
-    @keyframes drift{
-      0%{transform: translate3d(-1.5%, -1%, 0) scale(1.02)}
-      100%{transform: translate3d(1.5%, 1%, 0) scale(1.06)}
-    }
-
-    /* soft noise */
+    /* Noise + scanlines (terminal vibe, totally different) */
     .noise{
       position:fixed; inset:0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
-      opacity:.08;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.25'/%3E%3C/svg%3E");
+      opacity:.06;
       mix-blend-mode: overlay;
       pointer-events:none;
+      z-index:0;
     }
-
-    .wrap{
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 22px 16px 92px;
-    }
-
-    /* ======= TOP STRIP (like your attached "78 BPM + ONLINE") ======= */
-    .topstrip{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      margin-top: 10px;
-      margin-bottom: 18px;
-      flex-wrap:wrap;
-    }
-
-    .micro{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding: 10px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
-      box-shadow: var(--shadow2);
-      backdrop-filter: blur(10px);
-    }
-
-    .micro .label{
-      font-weight:900;
-      font-size:12px;
-      color: var(--muted);
-      letter-spacing:.2px;
-    }
-
-    .onlineDot{
-      width:9px;height:9px;border-radius:50%;
-      background: var(--ok);
-      box-shadow: 0 0 18px rgba(84,243,176,.55);
-    }
-    .onlineTxt{
-      font-weight:900;
-      font-size:12px;
-      color: var(--ok);
-      letter-spacing:.2px;
-      white-space:nowrap;
-    }
-
-    /* ======= HERO / MAIN ======= */
-    .hero{
-      border-radius: var(--r2);
-      border: 1px solid rgba(255,255,255,.10);
-      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      position:relative;
-    }
-
-    /* diagonal medical beam */
-    .hero:before{
-      content:"";
-      position:absolute; inset:-1px;
-      background:
-        linear-gradient(115deg, rgba(58,242,199,.14), transparent 35%),
-        linear-gradient(295deg, rgba(53,214,255,.10), transparent 40%);
-      opacity:.85;
+    .scan{
+      position:fixed; inset:0;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,.03),
+        rgba(255,255,255,.03) 1px,
+        transparent 1px,
+        transparent 5px
+      );
+      opacity:.08;
       pointer-events:none;
+      z-index:0;
     }
 
-    .heroInner{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap: 16px;
-      padding: 18px;
+    /* Layout */
+    .wrap{
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 18px 16px 90px;
       position:relative;
       z-index:1;
     }
 
-    .heroMain{
-      padding: 10px 10px 12px;
+    /* Top micro bar (like your BPM + ONLINE) */
+    .microbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      margin: 8px 0 16px;
     }
-
-    .kicker{
+    .micro{
       display:inline-flex;
       align-items:center;
-      gap:10px;
-      padding: 9px 12px;
+      gap:12px;
+      padding: 10px 12px;
       border-radius: 999px;
-      background: rgba(58,242,199,.10);
-      border: 1px solid rgba(58,242,199,.22);
-      color: var(--mint);
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.22);
+      box-shadow: var(--shadow2);
+      backdrop-filter: blur(10px);
+    }
+    .onlineDot{
+      width:9px;height:9px;border-radius:50%;
+      background: var(--green);
+      box-shadow: 0 0 18px rgba(46,255,184,.55);
+    }
+    .onlineTxt{
       font-weight: 900;
       font-size: 12px;
-    }
-    .kicker .dot{
-      width: 9px; height: 9px;
-      border-radius: 50%;
-      background: var(--mint);
-      box-shadow: 0 0 18px rgba(58,242,199,.6);
-    }
-
-    h1{
-      margin: 14px 0 8px;
-      font-size: 44px;
-      font-weight: 950;
-      letter-spacing: -1.2px;
-      line-height: 1.05;
-    }
-    .grad{
-      background: linear-gradient(90deg, var(--cyan), var(--mint));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color: transparent;
-    }
-    .sub{
-      margin:0;
-      color: var(--muted);
-      line-height: 1.6;
-      max-width: 70ch;
-      font-size: 13.5px;
-    }
-
-    .metaRow{
-      margin-top: 14px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-    }
-    .metaChip{
-      padding: 10px 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.14);
-      font-weight: 900;
-      font-size: 12px;
-      box-shadow: 0 12px 40px rgba(0,0,0,.25);
-    }
-    .metaChip span{color: var(--muted); font-weight: 900; margin-right:8px}
-
-    /* ======= RIGHT PANEL: "Recruitment Notice" ======= */
-    .notice{
-      border-radius: var(--r2);
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.16);
-      box-shadow: var(--shadow2);
-      overflow:hidden;
-      position:relative;
-    }
-    .noticeHead{
-      padding: 14px 14px 12px;
-      border-bottom: 1px solid rgba(255,255,255,.07);
-      background: rgba(0,0,0,.14);
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:10px;
-    }
-    .noticeHead h2{
-      margin:0;
-      font-size: 14px;
-      font-weight: 950;
       letter-spacing:.2px;
-    }
-    .pillWarn{
-      padding: 7px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,209,102,.25);
-      background: rgba(255,209,102,.08);
-      color: var(--amber);
-      font-weight: 950;
-      font-size: 11px;
+      color: rgba(234,242,255,.92);
       white-space:nowrap;
     }
-    .noticeBody{
-      padding: 14px;
-      color: var(--muted);
-      line-height: 1.6;
-      font-size: 13px;
-    }
-    .noticeBody b{color: var(--text)}
-    .noticeList{
-      margin: 10px 0 0;
-      padding: 0;
-      list-style:none;
-      display:grid;
-      gap: 10px;
-    }
-    .noticeList li{
-      padding: 10px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
+    .microRight{
       display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-    }
-    .noticeList .k{
-      font-weight: 950;
-      color: rgba(233,243,255,.92);
-      font-size: 12px;
-    }
-    .noticeList .v{
-      font-weight: 950;
-      color: var(--mint);
-      font-size: 12px;
-      text-align:right;
-    }
-
-    /* ======= SECTIONS ======= */
-    .sections{
-      margin-top: 16px;
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-
-    .card{
-      border-radius: var(--r);
-      border: 1px solid rgba(255,255,255,.10);
-      background: var(--panel);
-      box-shadow: var(--shadow2);
-      overflow:hidden;
-    }
-    .cardHead{
-      padding: 14px 16px 10px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
       gap:10px;
-      border-bottom: 1px solid rgba(255,255,255,.07);
-      background: rgba(0,0,0,.12);
-    }
-    .cardHead h3{
-      margin:0;
-      font-size: 14px;
-      font-weight: 950;
-      letter-spacing:.2px;
-    }
-    .badge{
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      font-weight: 950;
-      font-size: 11px;
-      color: var(--muted);
-      white-space:nowrap;
-    }
-    .cardBody{padding: 14px 16px 16px;}
-    .p{
-      margin:0;
-      color: var(--muted);
-      line-height: 1.65;
-      font-size: 13px;
-    }
-
-    .timeline{margin-top:12px; display:grid; gap:10px}
-    .tl{
-      display:flex;
-      gap: 12px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.09);
-      background: rgba(0,0,0,.14);
-      align-items:flex-start;
-    }
-    .bullet{
-      width:10px;height:10px;border-radius:50%;
-      margin-top:5px; flex:0 0 auto;
-      background: linear-gradient(180deg, var(--mint), var(--cyan));
-      box-shadow: 0 0 18px rgba(58,242,199,.25);
-    }
-    .tlt{font-weight: 950; font-size: 13px}
-    .tld{margin-top:4px; color: var(--muted); font-size: 13px; line-height: 1.45}
-
-    .pillset{margin-top:12px; display:flex; flex-wrap:wrap; gap:10px}
-    .pill2{
-      padding: 9px 11px;
-      border-radius: 999px;
-      font-weight: 950;
-      font-size: 12px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-    }
-    .pill2.m{border-color: rgba(58,242,199,.22); background: rgba(58,242,199,.08)}
-    .pill2.c{border-color: rgba(53,214,255,.22); background: rgba(53,214,255,.08)}
-    .pill2.a{border-color: rgba(255,209,102,.25); background: rgba(255,209,102,.08)}
-    .pill2.p{border-color: rgba(255,62,166,.18); background: rgba(255,62,166,.06)}
-
-    /* Roles as “certification wall” (different styling) */
-    .rolesWrap{
-      margin-top: 12px;
-      display:grid;
-      gap: 10px;
-    }
-    .roleRow{
-      display:flex;
       flex-wrap:wrap;
-      gap: 8px;
-    }
-    .tag{
-      padding: 8px 10px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,.11);
-      background: rgba(0,0,0,.14);
-      font-weight: 950;
-      font-size: 12px;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-    }
-    .tag .mini{
-      width: 9px; height: 9px;
-      border-radius: 4px;
-      background: var(--cyan);
-      box-shadow: 0 0 14px rgba(53,214,255,.25);
-    }
-    .tag.lead .mini{background: var(--mint); box-shadow: 0 0 14px rgba(58,242,199,.22)}
-    .tag.lic .mini{background: var(--amber); box-shadow: 0 0 14px rgba(255,209,102,.22)}
-    .tag.spec .mini{background: var(--pink); box-shadow: 0 0 14px rgba(255,62,166,.22)}
-
-    /* Ticket text */
-    .wide{grid-column:1 / -1;}
-    textarea{
-      width:100%;
-      min-height: 270px;
-      resize: vertical;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
-      color: var(--text);
-      padding: 14px;
-      font-family: var(--mono);
-      font-size: 12.5px;
-      line-height: 1.55;
-      outline:none;
+      justify-content:flex-end;
     }
 
-    /* ======= REACTIVE HEART MONITOR (small + subtle) ======= */
     .monitor{
       display:inline-flex;
       align-items:center;
@@ -426,58 +130,287 @@
       padding: 10px 12px;
       border-radius: 999px;
       border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
+      background: rgba(0,0,0,.22);
       box-shadow: var(--shadow2);
       backdrop-filter: blur(10px);
+      cursor:pointer;
+      user-select:none;
     }
-    .monitor svg{
-      width: 120px;
-      height: 18px;
-      display:block;
-    }
-    .bpm{
-      font-weight: 950;
-      font-size: 12px;
-      color: rgba(233,243,255,.95);
-      white-space:nowrap;
-    }
-    .bpm span{
-      color: var(--muted);
-      font-weight: 950;
-      margin-left:4px;
-    }
+    .monitor svg{width:120px;height:18px;display:block}
+    .bpm{font-weight:900;font-size:12px;color:rgba(234,242,255,.95)}
+    .bpm span{color:var(--muted); font-weight:900; margin-left:4px}
 
-    /* line animation */
-    .ekg path.base{
-      stroke: rgba(58,242,199,.35);
-      stroke-width: 3;
-      fill:none;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
+    .ekg path.base{stroke: rgba(46,255,184,.30); stroke-width:3; fill:none; stroke-linecap:round; stroke-linejoin:round}
     .ekg path.live{
-      stroke: rgba(58,242,199,.95);
-      stroke-width: 3;
-      fill:none;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+      stroke: rgba(46,255,184,.95); stroke-width:3; fill:none;
+      stroke-linecap:round; stroke-linejoin:round;
       stroke-dasharray: 180;
       stroke-dashoffset: 180;
-      animation: dash 1.55s linear infinite;
-      filter: drop-shadow(0 0 10px rgba(58,242,199,.30));
+      animation: dash var(--ekgSpeed) linear infinite;
+      filter: drop-shadow(0 0 10px rgba(46,255,184,.25));
     }
     @keyframes dash{
-      0%{stroke-dashoffset:180; opacity:.0}
+      0%{stroke-dashoffset:180; opacity:0}
       10%{opacity:1}
-      60%{opacity:1}
-      100%{stroke-dashoffset:-180; opacity:.0}
+      65%{opacity:1}
+      100%{stroke-dashoffset:-180; opacity:0}
+    }
+
+    /* Main split screen */
+    .split{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 16px;
+      align-items:start;
+    }
+
+    /* LEFT: Terminal */
+    .terminal{
+      border: 1px solid rgba(46,255,184,.18);
+      border-radius: var(--r);
+      background: linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.22));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .terminal:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(900px 300px at 30% 0%, rgba(46,255,184,.10), transparent 65%);
+      pointer-events:none;
+      opacity:.9;
+    }
+    .termTop{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding: 14px 14px 12px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.25);
+      position:relative;
+      z-index:1;
+    }
+    .termTitle{
+      display:flex; align-items:center; gap:10px;
+      font-weight: 950;
+      letter-spacing:.2px;
+    }
+    .leds{display:flex; gap:8px; align-items:center}
+    .led{width:10px;height:10px;border-radius:50%}
+    .led.g{background: var(--green); box-shadow:0 0 10px rgba(46,255,184,.35)}
+    .led.c{background: var(--cyan); box-shadow:0 0 10px rgba(70,215,255,.25)}
+    .led.r{background: var(--red); box-shadow:0 0 10px rgba(255,77,109,.22)}
+    .termTag{
+      font-family: var(--mono);
+      font-size: 12px;
+      color: rgba(147,165,192,.95);
+    }
+
+    .termBody{
+      padding: 14px;
+      position:relative;
+      z-index:1;
+    }
+
+    .cmdline{
+      font-family: var(--mono);
+      font-size: 12.5px;
+      color: rgba(234,242,255,.92);
+      line-height: 1.75;
+    }
+    .prompt{color: rgba(46,255,184,.95); font-weight:800}
+    .dim{color: rgba(147,165,192,.85)}
+    .hl{color: rgba(70,215,255,.95); font-weight:800}
+    .warn{color: rgba(255,206,107,.95); font-weight:800}
+    .ok{color: rgba(46,255,184,.95); font-weight:800}
+
+    /* Terminal blocks */
+    .termGrid{
+      margin-top: 12px;
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 12px;
+    }
+    .tile{
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 14px;
+      background: rgba(255,255,255,.04);
+      padding: 12px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.22);
+    }
+    .tile .k{font-family:var(--mono); font-size:11.5px; color: rgba(147,165,192,.95); font-weight:800}
+    .tile .v{margin-top:6px; font-weight:950; font-size:13px; color: rgba(234,242,255,.95)}
+    .tile .v a{color:inherit; text-decoration:none; border-bottom:1px dashed rgba(255,255,255,.25)}
+    .tile .v a:hover{border-bottom-color: rgba(255,255,255,.55)}
+
+    .sections{
+      margin-top: 12px;
+      display:grid;
+      gap: 12px;
+    }
+
+    .block{
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 14px;
+      background: rgba(0,0,0,.16);
+      padding: 12px;
+    }
+    .blockHead{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      margin-bottom: 8px;
+    }
+    .blockHead .t{
+      font-weight: 950;
+      font-size: 13px;
+      letter-spacing:.2px;
+    }
+    .pill{
+      font-family: var(--mono);
+      font-size: 11px;
+      color: rgba(147,165,192,.95);
+      border: 1px solid rgba(255,255,255,.10);
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.03);
+      white-space:nowrap;
+    }
+    .block p{
+      margin:0;
+      color: rgba(147,165,192,.95);
+      line-height: 1.7;
+      font-size: 13px;
+    }
+
+    .list{
+      margin-top: 10px;
+      display:grid;
+      gap: 8px;
+    }
+    .li{
+      display:flex; gap:10px; align-items:flex-start;
+      padding: 10px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03);
+    }
+    .ic{
+      width: 18px; height: 18px; border-radius: 6px;
+      background: rgba(46,255,184,.12);
+      border: 1px solid rgba(46,255,184,.22);
+      display:grid; place-items:center;
+      color: rgba(46,255,184,.95);
+      font-weight: 950;
+      flex:0 0 auto;
+      margin-top: 1px;
+    }
+    .li .tt{font-weight:950; font-size: 13px}
+    .li .dd{margin-top:3px; color: rgba(147,165,192,.95); font-size: 13px; line-height:1.5}
+
+    /* RIGHT: Aushang / Poster on paper */
+    .poster{
+      border-radius: var(--r);
+      background: radial-gradient(800px 420px at 40% 0%, rgba(255,255,255,.18), rgba(255,255,255,.06)),
+                  linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.20));
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .posterInner{
+      padding: 16px;
+      display:grid;
+      gap: 12px;
+    }
+
+    .paper{
+      background: linear-gradient(180deg, var(--paper), var(--paper2));
+      color: #101722;
+      border-radius: 14px;
+      box-shadow: 0 18px 60px rgba(0,0,0,.35);
+      border: 1px solid rgba(0,0,0,.08);
+      overflow:hidden;
+    }
+    .paperTop{
+      padding: 14px 14px 12px;
+      background: linear-gradient(90deg, rgba(16,23,34,.06), rgba(16,23,34,.02));
+      border-bottom: 1px solid rgba(0,0,0,.08);
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .stamp{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px dashed rgba(16,23,34,.25);
+      font-weight: 900;
+      font-size: 11px;
+      color: rgba(16,23,34,.75);
+      white-space:nowrap;
+    }
+    .stamp .sDot{
+      width:8px;height:8px;border-radius:50%;
+      background: #16b67f;
+      box-shadow:none;
+    }
+    .paperBody{
+      padding: 14px;
+      font-size: 13px;
+      line-height: 1.65;
+      color: rgba(16,23,34,.88);
+    }
+    .paperBody h2{
+      margin:0 0 10px;
+      font-size: 16px;
+      font-weight: 950;
+      letter-spacing:.2px;
+      color:#0d1522;
+    }
+    .paperBody b{color:#0d1522}
+    .paperBody ul{
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+    .paperBody li{margin: 6px 0}
+
+    /* Ticket textarea styled like a “printout” */
+    .printout{
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      padding: 12px;
+    }
+    .printoutHead{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      margin-bottom: 10px;
+      color: rgba(234,242,255,.92);
+      font-weight: 950;
+      font-size: 13px;
+    }
+    textarea{
+      width:100%;
+      min-height: 260px;
+      resize: vertical;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.22);
+      color: rgba(234,242,255,.95);
+      padding: 12px;
+      font-family: var(--mono);
+      font-size: 12.5px;
+      line-height: 1.55;
+      outline:none;
     }
 
     /* Floating actions */
     .fab{
       position:fixed;
-      right: 16px;
-      bottom: 16px;
+      right: 14px;
+      bottom: 14px;
       display:flex;
       flex-direction:column;
       gap:10px;
@@ -485,22 +418,24 @@
     }
     .fab button{
       cursor:pointer;
-      border-radius: 16px;
+      border-radius: 14px;
       padding: 12px 14px;
       border: 1px solid rgba(255,255,255,.13);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
+      background: rgba(0,0,0,.26);
+      color: rgba(234,242,255,.95);
       font-weight: 950;
       display:flex;
       align-items:center;
       gap:10px;
       box-shadow: var(--shadow2);
+      backdrop-filter: blur(10px);
       transition: transform .12s ease, border-color .12s ease, background .12s ease;
+      user-select:none;
     }
     .fab button:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.25)}
     .fab button.primary{
-      background: linear-gradient(135deg, rgba(58,242,199,.10), rgba(53,214,255,.08));
-      border-color: rgba(58,242,199,.22);
+      border-color: rgba(46,255,184,.22);
+      background: rgba(46,255,184,.08);
     }
 
     /* Toast */
@@ -509,13 +444,13 @@
       left: 50%;
       bottom: 22px;
       transform: translateX(-50%);
-      background: rgba(10,14,28,.88);
-      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.62);
+      border: 1px solid rgba(255,255,255,.14);
       padding: 10px 12px;
       border-radius: 999px;
       font-weight: 950;
       font-size: 12px;
-      color: var(--text);
+      color: rgba(234,242,255,.95);
       box-shadow: var(--shadow2);
       backdrop-filter: blur(10px);
       opacity: 0;
@@ -527,39 +462,36 @@
     .toast.show{opacity:1; transform: translateX(-50%) translateY(-4px)}
 
     footer{
-      margin-top: 18px;
-      color: rgba(169,183,210,.85);
+      margin-top: 16px;
+      color: rgba(147,165,192,.88);
       font-size: 12px;
       display:flex;
       justify-content:space-between;
-      gap:12px;
+      gap: 12px;
       flex-wrap:wrap;
       opacity:.95;
     }
     footer a{
-      color:inherit;
-      text-decoration:none;
+      color:inherit; text-decoration:none;
       border-bottom: 1px dashed rgba(255,255,255,.18);
     }
     footer a:hover{border-bottom-color: rgba(255,255,255,.45)}
 
     @media (max-width: 980px){
-      .heroInner{grid-template-columns: 1fr}
-      .sections{grid-template-columns: 1fr}
-      h1{font-size: 36px}
-      .wrap{padding-bottom: 110px}
+      .split{grid-template-columns: 1fr}
+      .termGrid{grid-template-columns: 1fr}
     }
   </style>
 </head>
 
 <body>
-  <div class="aurora" aria-hidden="true"></div>
   <div class="noise" aria-hidden="true"></div>
+  <div class="scan" aria-hidden="true"></div>
 
   <main class="wrap">
-    <!-- TOP STRIP: heart monitor + online (like your attachment) -->
-    <div class="topstrip" aria-label="Systemstatus">
-      <div class="monitor" id="monitor" title="Herzmonitor (dezent reaktiv)">
+    <!-- micro status bar -->
+    <div class="microbar" aria-label="Systemstatus">
+      <div class="monitor" id="monitor" title="Herzmonitor (klicken = Spike)">
         <svg class="ekg" viewBox="0 0 200 30" aria-hidden="true">
           <path class="base" d="M0,16 L35,16 L50,16 L58,8 L66,24 L76,16 L105,16 L122,16 L130,16 L138,10 L148,24 L160,16 L200,16"/>
           <path class="live" d="M0,16 L35,16 L50,16 L58,8 L66,24 L76,16 L105,16 L122,16 L130,16 L138,10 L148,24 L160,16 L200,16"/>
@@ -567,215 +499,189 @@
         <div class="bpm"><span id="bpm">78</span> <span>BPM</span></div>
       </div>
 
-      <div class="micro" title="Systemstatus">
-        <span class="onlineDot"></span>
-        <span class="onlineTxt">MEDICAL SYSTEM • ONLINE</span>
+      <div class="microRight">
+        <div class="micro">
+          <span class="onlineDot"></span>
+          <span class="onlineTxt">MEDICAL SYSTEM • ONLINE</span>
+        </div>
+        <div class="micro">
+          <span class="onlineTxt" style="color:rgba(234,242,255,.90)">QUEUE:</span>
+          <span class="onlineTxt" style="color:var(--cyan)">Bewerbungen • offen</span>
+        </div>
       </div>
     </div>
 
-    <!-- HERO -->
-    <section class="hero" aria-label="Bewerbung">
-      <div class="heroInner">
-        <div class="heroMain">
-          <div class="kicker"><span class="dot"></span> Bewerbungsphase • dauerhaft geöffnet</div>
-          <h1>Bewerbung für das <span class="grad">LSMD</span></h1>
-          <p class="sub">
-            Bewerbung auf die Stelle: <b>🚑 Notfallsanitäter/in | Trainee (m/w/d)</b> •
-            Dienstort: <b>📍 Los Santos, San Andreas</b> • Anstellungsart: <b>⏱️ Vollzeit / Teilzeit</b>.
-            <br><br>
-            Ich bringe <b>MD-Vorerfahrung als Führungskraft</b> aus einem anderen Staat (Server) mit und lege Wert auf
-            saubere Abläufe, respektvolle Kommunikation und langfristige Verlässlichkeit.
-          </p>
-
-          <div class="metaRow" aria-label="Bewerberdaten">
-            <div class="metaChip"><span>Name</span> Jeff Jeremain</div>
-            <div class="metaChip"><span>Alter</span> 36 Jahre</div>
-            <div class="metaChip"><span>Telefon</span> 6029103965</div>
-            <div class="metaChip"><span>Visum Stufe</span> 14</div>
+    <section class="split">
+      <!-- LEFT TERMINAL -->
+      <section class="terminal" aria-label="Einsatzakte / Terminal">
+        <div class="termTop">
+          <div class="termTitle">
+            <span class="leds" aria-hidden="true">
+              <span class="led g"></span><span class="led c"></span><span class="led r"></span>
+            </span>
+            LSMD_TERMINAL • APPLICATION.DOSSIER
           </div>
-
-          <div class="pillset" aria-label="Schwerpunkte">
-            <span class="pill2 m">🚨 Erstversorgung</span>
-            <span class="pill2 c">🩹 Sofortmaßnahmen</span>
-            <span class="pill2 a">📝 Dokumentation</span>
-            <span class="pill2 p">👥 Teamführung</span>
-          </div>
+          <div class="termTag">v14 • verified</div>
         </div>
 
-        <!-- Recruitment notice (based on your pasted LSMD post) -->
-        <aside class="notice" aria-label="Stellenausschreibung (Kurzinfo)">
-          <div class="noticeHead">
-            <div>
-              <h2>🏥 Stellenausschreibung – LSMD</h2>
-              <div style="margin-top:6px; color:var(--muted); font-weight:900; font-size:12px;">
-                Bewerbungsfrist: <span style="color:var(--text)">laufend</span>
+        <div class="termBody">
+          <div class="cmdline">
+            <span class="prompt">lsmd@intake</span><span class="dim">:</span><span class="hl">~</span><span class="dim">$</span>
+            load applicant --id <span class="warn">JEFF_JEREMAIN</span><br>
+            <span class="dim">↳</span> status: <span class="ok">READY</span> • clearance: <span class="ok">VISUM_14</span> • contact: <span class="ok">6029103965</span><br><br>
+
+            <span class="prompt">lsmd@intake</span><span class="dim">:</span><span class="hl">~</span><span class="dim">$</span>
+            summary --role <span class="warn">Notfallsanitäter/in Trainee</span><br>
+            <span class="dim">↳</span> traits: <span class="ok">struktur</span>, <span class="ok">belastbar</span>, <span class="ok">teamorientiert</span>, <span class="ok">leadership</span><br>
+          </div>
+
+          <div class="termGrid" aria-label="Stammdaten">
+            <div class="tile">
+              <div class="k">NAME</div>
+              <div class="v">Jeff Jeremain</div>
+            </div>
+            <div class="tile">
+              <div class="k">ALTER</div>
+              <div class="v">36 Jahre</div>
+            </div>
+            <div class="tile">
+              <div class="k">TELEFON</div>
+              <div class="v"><a href="tel:6029103965">6029103965</a></div>
+            </div>
+            <div class="tile">
+              <div class="k">VISUM</div>
+              <div class="v">14</div>
+            </div>
+          </div>
+
+          <div class="sections">
+            <div class="block">
+              <div class="blockHead">
+                <div class="t">MD-Vorerfahrung</div>
+                <div class="pill">source: Latenight V</div>
+              </div>
+              <p>
+                Ich war auf dem Server <b style="color:rgba(234,242,255,.92)">Latenight V</b> im medizinischen Dienst tätig –
+                dort <b style="color:rgba(234,242,255,.92)">als Führungskraft</b>. Ich kenne strukturierte Abläufe,
+                Einsatzkoordination, Funkdisziplin sowie saubere Übergaben und Dokumentation.
+              </p>
+
+              <div class="list">
+                <div class="li">
+                  <div class="ic">+</div>
+                  <div>
+                    <div class="tt">Führung / Koordination</div>
+                    <div class="dd">Teamleitung, Prioritäten, Eskalationswege, Standards & Schulungen.</div>
+                  </div>
+                </div>
+                <div class="li">
+                  <div class="ic">+</div>
+                  <div>
+                    <div class="tt">Einsatzroutine</div>
+                    <div class="dd">Lageeinschätzung, klare Kommunikation, sichere Entscheidungen im Stress.</div>
+                  </div>
+                </div>
+                <div class="li">
+                  <div class="ic">+</div>
+                  <div>
+                    <div class="tt">Dokumentation</div>
+                    <div class="dd">Berichte/Übergaben sauber, nachvollziehbar, RP-konform.</div>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="pillWarn">🚨 Offene Bewerbungsphase</div>
+
+            <div class="block">
+              <div class="blockHead">
+                <div class="t">Motivation</div>
+                <div class="pill">why: LSMD</div>
+              </div>
+              <p>
+                Ich möchte ins LSMD, weil ich professionelles, realitätsnahes Medical-RP mit klaren Standards mag:
+                ruhige Kommunikation, saubere Abläufe und respektvoller Umgang. Ich bin bereit für Nacht- und
+                Schichtdienste und freue mich auf Schulungen & Weiterbildungen.
+              </p>
+            </div>
+
+            <div class="block">
+              <div class="blockHead">
+                <div class="t">Stärken & Schwächen</div>
+                <div class="pill">self-check</div>
+              </div>
+              <p>
+                <b style="color:rgba(234,242,255,.92)">Stärken:</b> ruhig & belastbar unter Druck • klare Kommunikation • strukturierte Arbeitsweise • Dokumentation.<br>
+                <b style="color:rgba(234,242,255,.92)">Schwächen:</b> Perfektionismus (Zeitlimits) • Delegieren verbessern • Prioritäten bei Chaos schneller setzen.
+              </p>
+            </div>
           </div>
-          <div class="noticeBody">
-            <b>Über uns:</b> Schnelle Hilfe, professionelle Versorgung & ein starkes Team. 💉❤️<br>
-            <b>Gesucht:</b> Notfallsanitäter/in (Trainee) – Vollzeit/Teilzeit.
-            <ul class="noticeList">
-              <li><span class="k">Dienstort</span><span class="v">Los Santos</span></li>
-              <li><span class="k">Schichtdienst</span><span class="v">Tag/Nacht</span></li>
-              <li><span class="k">RP-Vorkenntnisse</span><span class="v">Vorteil</span></li>
-              <li><span class="k">Führungszeugnis (IG)</span><span class="v">Sauber</span></li>
-            </ul>
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <!-- SECTIONS -->
-    <section class="sections" aria-label="Bewerbungsinhalte">
-      <article class="card">
-        <div class="cardHead">
-          <h3>⭐ Über mich</h3>
-          <span class="badge">Kurzprofil</span>
         </div>
-        <div class="cardBody">
-          <p class="p">
-            Ich lege Wert auf ruhige, professionelle Kommunikation und auf nachvollziehbare Abläufe.
-            Mir ist wichtig, dass Patientenversorgung, Funkdisziplin und Dokumentation sauber umgesetzt werden.
-            Langfristig möchte ich mich im LSMD weiterentwickeln und dem Team zuverlässig Rückhalt geben.
-          </p>
-        </div>
-      </article>
+      </section>
 
-      <article class="card">
-        <div class="cardHead">
-          <h3>🧾 MD-Vorerfahrung</h3>
-          <span class="badge">Leadership</span>
-        </div>
-        <div class="cardBody">
-          <p class="p">
-            Auf <b>Latenight V</b> war ich im medizinischen Dienst tätig – dort <b>als Führungskraft</b>.
-            Dadurch bin ich mit Strukturen, Standards, Ausbildung/Einweisung und Einsatzkoordination vertraut.
-          </p>
-
-          <div class="timeline">
-            <div class="tl">
-              <div class="bullet"></div>
+      <!-- RIGHT POSTER -->
+      <aside class="poster" aria-label="Stellenausschreibung / Aushang">
+        <div class="posterInner">
+          <div class="paper" aria-label="Aushang">
+            <div class="paperTop">
               <div>
-                <div class="tlt">Koordination & Standards</div>
-                <div class="tld">Prioritäten setzen, Eskalationswege, saubere Übergaben, klare Verantwortlichkeiten.</div>
+                <div style="font-weight:950; letter-spacing:.2px; font-size:13px; color:#0d1522;">
+                  🏥 Stellenausschreibung – Los Santos Medical Department (LSMD)
+                </div>
+                <div style="margin-top:6px; font-size:12px; color:rgba(16,23,34,.72); font-weight:900;">
+                  Bewerbungsphase: dauerhaft geöffnet • Bewerbungsfrist: laufend
+                </div>
               </div>
+              <div class="stamp"><span class="sDot"></span> VERIFIED NOTICE</div>
             </div>
-            <div class="tl">
-              <div class="bullet"></div>
-              <div>
-                <div class="tlt">Einsatzroutine</div>
-                <div class="tld">Schnelle Lageeinschätzung, sichere Entscheidungen, ruhiges Auftreten im Stress.</div>
-              </div>
-            </div>
-            <div class="tl">
-              <div class="bullet"></div>
-              <div>
-                <div class="tlt">Dokumentation</div>
-                <div class="tld">Nachvollziehbare Berichte und Behandlungsschritte (RP-konform).</div>
-              </div>
+
+            <div class="paperBody">
+              <h2>Position: 🚑 Notfallsanitäter/in | Trainee (m/w/d)</h2>
+              <b>Dienstort:</b> 📍 Los Santos, San Andreas<br>
+              <b>Anstellungsart:</b> ⏱️ Vollzeit / Teilzeit<br><br>
+
+              <b>⭐ Über uns</b><br>
+              Das LSMD steht für schnelle Hilfe, professionelle Versorgung und ein starkes Team. 💉❤️
+              <br><br>
+
+              <b>🔧 Ihre Aufgaben</b>
+              <ul>
+                <li>🚨 Erstversorgung von Notfallpatienten</li>
+                <li>🩹 Durchführung medizinischer Sofortmaßnahmen</li>
+                <li>🚑 Sicherer Transport ins Krankenhaus</li>
+                <li>🏥 Unterstützung des Ärzteteams</li>
+                <li>📝 Dokumentation aller Einsätze</li>
+                <li>🎓 Teilnahme an regelmäßigen Schulungen</li>
+              </ul>
+
+              <b>👤 Ihr Profil</b>
+              <ul>
+                <li>🔞 Mindestalter 18 Jahre</li>
+                <li>🤝 Teamfähig, belastbar, hilfsbereit</li>
+                <li>😌 Professionelles & ruhiges Auftreten</li>
+                <li>🌙 Bereitschaft für Nacht- & Schichtdienste</li>
+                <li>📚 Medizinische Vorkenntnisse (RP) von Vorteil</li>
+                <li>📁 Sauberes Führungszeugnis (Ingame)</li>
+              </ul>
+
+              <b>🎁 Wir bieten</b>
+              <ul>
+                <li>💵 Überdurchschnittliche Verdienstmöglichkeiten</li>
+                <li>📈 Aufstiegschancen bis Leitungsebene</li>
+                <li>🎓 Ausbildung & stetige Weiterbildung</li>
+                <li>🚐 Moderne Fahrzeuge & Ausrüstung</li>
+                <li>🤗 Starkes Team & realitätsnahe Einsätze</li>
+              </ul>
+
+              <b>✉️ Bewerbung</b><br>
+              Bitte Bewerbung mit kurzem Lebenslauf & Motivationsschreiben im Ticketsystem unter „Bewerbungen“ einreichen.
             </div>
           </div>
-        </div>
-      </article>
 
-      <article class="card">
-        <div class="cardHead">
-          <h3>🎯 Motivation</h3>
-          <span class="badge">Warum LSMD?</span>
-        </div>
-        <div class="cardBody">
-          <p class="p">
-            Ich möchte im LSMD arbeiten, weil ich realitätsnahes Medical-RP mit Struktur mag.
-            Mich motiviert, Menschen zu helfen, Einsätze sauber abzuarbeiten und im Team verlässlich zu sein.
-            Ich bin bereit für Schicht-/Nachdienste und freue mich auf Schulungen & Weiterbildungen.
-          </p>
-
-          <div class="pillset">
-            <span class="pill2 m">Teamfähig</span>
-            <span class="pill2 c">Belastbar</span>
-            <span class="pill2 a">Ruhiges Auftreten</span>
-            <span class="pill2 p">Nacht-/Schichtdienst</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="cardHead">
-          <h3>🧠 Stärken & Schwächen</h3>
-          <span class="badge">Reflexion</span>
-        </div>
-        <div class="cardBody">
-          <div class="timeline" style="margin-top:0">
-            <div class="tl">
-              <div class="bullet"></div>
-              <div>
-                <div class="tlt">Stärken</div>
-                <div class="tld">Ruhig unter Druck • klare Kommunikation • saubere Dokumentation • teamorientiert.</div>
-              </div>
-            </div>
-            <div class="tl">
-              <div class="bullet" style="background:linear-gradient(180deg,var(--amber),rgba(255,255,255,.35))"></div>
-              <div>
-                <div class="tlt">Schwächen (woran ich arbeite)</div>
-                <div class="tld">Perfektionismus (Zeitlimits) • Delegieren verbessern • Prioritäten bei Chaos schneller setzen.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <article class="card wide">
-        <div class="cardHead">
-          <h3>🏷️ Referenzen – Discord Rollen (alter Server)</h3>
-          <span class="badge">Rollenübersicht</span>
-        </div>
-        <div class="cardBody">
-          <p class="p">
-            Rollen aus dem vorherigen MD als Hinweis auf Aufgabenbereiche, Verantwortungslevel und Weiterbildungen.
-          </p>
-
-          <div class="rolesWrap">
-            <div class="roleRow" aria-label="Führung">
-              <span class="tag lead"><span class="mini"></span> Abteilungs Director | LSMD</span>
-              <span class="tag lead"><span class="mini"></span> Führungsebene</span>
-              <span class="tag lead"><span class="mini"></span> Abteilungs Direction</span>
-              <span class="tag lead"><span class="mini"></span> Leitungsebene</span>
-              <span class="tag lead"><span class="mini"></span> Head of Prakti/Sani</span>
-              <span class="tag lead"><span class="mini"></span> Personalabteilung | LSMD</span>
+          <div class="printout" aria-label="Ticket-Text">
+            <div class="printoutHead">
+              <span>✉️ Ticket-Text (Copy & Paste)</span>
+              <span style="font-family:var(--mono); font-size:11px; color:rgba(147,165,192,.95)">application.txt</span>
             </div>
 
-            <div class="roleRow" aria-label="Rang/Medizin">
-              <span class="tag spec"><span class="mini"></span> Oberarzt | LSMD</span>
-              <span class="tag"><span class="mini"></span> Arzt | LSMD</span>
-              <span class="tag spec"><span class="mini"></span> Prakti/Sani Ausbilder | LSMD</span>
-              <span class="tag spec"><span class="mini"></span> Sr. Prakti/Sani Ausbilder/in | LSMD</span>
-              <span class="tag"><span class="mini"></span> Ausbilder | LSMD</span>
-              <span class="tag spec"><span class="mini"></span> Eventmanager | LSMD</span>
-              <span class="tag"><span class="mini"></span> Professoren | LSMD</span>
-            </div>
-
-            <div class="roleRow" aria-label="Lizenzen">
-              <span class="tag lic"><span class="mini"></span> Therapeuten Lizenz</span>
-              <span class="tag lic"><span class="mini"></span> Funkprüfer | LSMD</span>
-              <span class="tag lic"><span class="mini"></span> Osprey Lizenz</span>
-              <span class="tag lic"><span class="mini"></span> Overwatch+ Lizenz</span>
-              <span class="tag lic"><span class="mini"></span> Overwatch Lizenz</span>
-              <span class="tag lic"><span class="mini"></span> U-Boot Lizenz (Urus)</span>
-              <span class="tag lic"><span class="mini"></span> Punkprüfung absolviert</span>
-              <span class="tag lic"><span class="mini"></span> MedicNet Lizenz</span>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <article class="card wide">
-        <div class="cardHead">
-          <h3>✉️ Bewerbung (Ticket-Text)</h3>
-          <span class="badge">Copy & Paste</span>
-        </div>
-        <div class="cardBody">
 <textarea id="applicationText" spellcheck="false">**Bewerbung – Los Santos Medical Department (LSMD)**
 
 **Position:** 🚑 Notfallsanitäter/in | Trainee (m/w/d)
@@ -809,8 +715,9 @@ Ich möchte zum LSMD, weil ich professionelles, realitätsnahes Medical-RP mit k
 - Lizenzen/Weiterbildung (Funkprüfer, MedicNet, Overwatch, Osprey u.a.)
 
 Ich freue mich auf ein Gespräch / eine Probeschicht.</textarea>
+          </div>
         </div>
-      </article>
+      </aside>
     </section>
 
     <footer>
@@ -819,10 +726,9 @@ Ich freue mich auf ein Gespräch / eine Probeschicht.</textarea>
     </footer>
   </main>
 
-  <!-- Floating actions -->
   <div class="fab" aria-label="Aktionen">
-    <button class="primary" id="copyBtn"><span>⎘</span> Bewerbung kopieren</button>
-    <button id="dlBtn"><span>⬇</span> TXT speichern</button>
+    <button class="primary" id="copyBtn">⎘ Bewerbung kopieren</button>
+    <button id="dlBtn">⬇ TXT speichern</button>
   </div>
 
   <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
@@ -830,7 +736,6 @@ Ich freue mich auf ein Gespräch / eine Probeschicht.</textarea>
   <script>
     const $ = (s) => document.querySelector(s);
 
-    // Toast
     const toast = (msg) => {
       const el = $("#toast");
       el.textContent = msg;
@@ -839,7 +744,6 @@ Ich freue mich auf ein Gespräch / eine Probeschicht.</textarea>
       toast._t = setTimeout(() => el.classList.remove("show"), 1600);
     };
 
-    // Copy
     const copyApp = async () => {
       const ta = $("#applicationText");
       const txt = ta.value.trim();
@@ -853,7 +757,6 @@ Ich freue mich auf ein Gespräch / eine Probeschicht.</textarea>
       }
     };
 
-    // Download
     const downloadTxt = () => {
       const txt = $("#applicationText").value.trim();
       const blob = new Blob([txt], { type: "text/plain;charset=utf-8" });
@@ -868,58 +771,51 @@ Ich freue mich auf ein Gespräch / eine Probeschicht.</textarea>
       toast("TXT gespeichert ⬇");
     };
 
-    // Reactive heart monitor: changes BPM slightly; spikes on clicks/scroll
+    // Reactive heart monitor (subtle)
     const bpmEl = $("#bpm");
     let bpm = 78;
     let target = 78;
 
-    const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
-    const rand = (a,b) => Math.floor(Math.random()*(b-a+1))+a;
+    const clamp = (n,a,b)=>Math.max(a,Math.min(b,n));
+    const rint = (a,b)=>Math.floor(Math.random()*(b-a+1))+a;
 
-    const setTarget = (t) => { target = clamp(t, 60, 140); };
+    const setTarget = (t)=>{ target = clamp(t, 60, 140); };
 
-    const tickBpm = () => {
-      // small natural drift
-      if (Math.random() < 0.15) setTarget(78 + rand(-4, 6));
+    const spike = (boost=0)=> setTarget(92 + rint(0,14) + boost);
 
-      // smooth move
-      bpm += (target - bpm) * 0.12;
-      bpmEl.textContent = String(Math.round(bpm));
-
-      // make the EKG animation "react" by changing CSS speed a bit
-      const speed = clamp(1.85 - (Math.round(bpm) - 60) / 120, 0.75, 1.85);
+    // speed reacts to BPM
+    const updateSpeed = () => {
+      const v = Math.round(bpm);
+      const speed = clamp(1.75 - (v - 60) / 140, 0.75, 1.75);
       document.documentElement.style.setProperty("--ekgSpeed", speed + "s");
-
-      requestAnimationFrame(tickBpm);
     };
 
-    // Apply dynamic speed to animation
-    const style = document.createElement("style");
-    style.textContent = `
-      .ekg path.live{ animation-duration: var(--ekgSpeed, 1.55s) !important; }
-    `;
-    document.head.appendChild(style);
+    const loop = () => {
+      // drift
+      if (Math.random() < 0.10) setTarget(78 + rint(-5, 6));
+      bpm += (target - bpm) * 0.10;
+      bpmEl.textContent = String(Math.round(bpm));
+      updateSpeed();
+      requestAnimationFrame(loop);
+    };
 
-    // Interaction spikes (dezent)
-    const spike = () => setTarget(90 + rand(0, 16));
-    window.addEventListener("scroll", () => { if (Math.random() < 0.08) spike(); }, { passive:true });
-    $("#monitor").addEventListener("click", () => { spike(); toast("Monitor: Spike ✅"); });
+    // interactions
+    $("#monitor").addEventListener("click", () => { spike(6); toast("Monitor: Spike ✅"); });
+    window.addEventListener("scroll", () => { if (Math.random() < 0.06) spike(); }, { passive:true });
 
-    // Top link
-    $("#top").addEventListener("click", (e) => {
-      e.preventDefault();
-      window.scrollTo({ top: 0, behavior: "smooth" });
+    // hover on key areas triggers tiny spikes
+    document.querySelectorAll(".terminal, .poster, .paper").forEach(el=>{
+      el.addEventListener("mouseenter", ()=>{ if (Math.random() < 0.35) spike(-4); });
     });
 
-    // Buttons
+    // buttons
     $("#copyBtn").addEventListener("click", copyApp);
     $("#dlBtn").addEventListener("click", downloadTxt);
 
-    // Year
+    $("#top").addEventListener("click", (e)=>{ e.preventDefault(); window.scrollTo({top:0,behavior:"smooth"}); });
     $("#year").textContent = new Date().getFullYear();
 
-    // Start
-    tickBpm();
+    loop();
   </script>
 </body>
 </html>
