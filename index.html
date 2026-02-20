@@ -1,154 +1,166 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bewerbung – Jeff Jeremain | LSMD</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MD Bewerbung – Dein Name</title>
 
-<style>
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    color: white;
-    overflow-x: hidden;
-}
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: white;
+            overflow-x: hidden;
+        }
 
-/* Herzmonitor Animation */
-.ekg-container {
-    position: relative;
-    height: 120px;
-    background: black;
-    overflow: hidden;
-    border-bottom: 3px solid #ff0033;
-}
+        header {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+        }
 
-.ekg-line {
-    position: absolute;
-    width: 200%;
-    height: 100%;
-    background: url('https://i.imgur.com/7xZJz5B.png') repeat-x;
-    background-size: contain;
-    animation: move 4s linear infinite;
-}
+        .clock {
+            font-size: 18px;
+            margin-top: 5px;
+            opacity: 0.8;
+        }
 
-@keyframes move {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-}
+        h1 {
+            margin: 10px 0;
+            font-size: 40px;
+            letter-spacing: 2px;
+        }
 
-header {
-    text-align: center;
-    padding: 40px 20px;
-}
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 30px;
+            background: rgba(0,0,0,0.4);
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(0,255,200,0.3);
+            animation: fadeIn 1.5s ease-in-out;
+        }
 
-header h1 {
-    font-size: 2.5em;
-    color: #ff4d6d;
-}
+        h2 {
+            border-left: 4px solid #00ffc8;
+            padding-left: 10px;
+        }
 
-.card {
-    max-width: 800px;
-    margin: 40px auto;
-    background: rgba(255,255,255,0.05);
-    padding: 30px;
-    border-radius: 20px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 0 25px rgba(255,0,51,0.4);
-}
+        .ekg-container {
+            margin-top: 30px;
+            text-align: center;
+        }
 
-.card h2 {
-    color: #ff4d6d;
-    border-bottom: 2px solid #ff4d6d;
-    padding-bottom: 10px;
-}
+        svg {
+            width: 100%;
+            max-width: 500px;
+        }
 
-.info-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-}
+        .ekg-line {
+            fill: none;
+            stroke: #00ffc8;
+            stroke-width: 4;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: ekg 3s linear infinite;
+        }
 
-.info-box {
-    background: rgba(255,255,255,0.08);
-    padding: 15px;
-    border-radius: 10px;
-}
+        @keyframes ekg {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
 
-button {
-    margin-top: 20px;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 30px;
-    background: #ff0033;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 0.3s;
-}
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-button:hover {
-    background: #ff4d6d;
-    box-shadow: 0 0 15px #ff0033;
-}
+        .card {
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            transition: 0.3s;
+        }
 
-footer {
-    text-align: center;
-    padding: 20px;
-    opacity: 0.7;
-}
-</style>
+        .card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 20px rgba(0,255,200,0.5);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            opacity: 0.6;
+            margin-top: 40px;
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="ekg-container">
-    <div class="ekg-line"></div>
-</div>
-
 <header>
-    <h1>🚑 Bewerbung beim LSMD 🚨</h1>
-    <p>Jeff Jeremain – Notfallsanitäter | Trainee</p>
+    <h1>MD Bewerbung</h1>
+    <div class="clock" id="clock"></div>
 </header>
 
-<div class="card">
-    <h2>👤 Persönliche Daten</h2>
-    <div class="info-grid">
-        <div class="info-box"><strong>Name:</strong> Jeff Jeremain</div>
-        <div class="info-box"><strong>Alter:</strong> 36 Jahre</div>
-        <div class="info-box"><strong>Visum Stufe:</strong> 14</div>
-        <div class="info-box"><strong>Telefon:</strong> 6029103965</div>
+<div class="container">
+
+    <h2>Über mich</h2>
+    <div class="card">
+        <p>
+            Hier schreibst du deine Vorstellung rein.  
+            RP-Erfahrung, Stärken, Motivation und warum genau DU in diesen MD gehörst.
+        </p>
     </div>
-</div>
 
-<div class="card">
-    <h2>⭐ Motivation</h2>
-    <p>
-        Sehr geehrte Leitung des Los Santos Medical Department,<br><br>
-        ich möchte Teil des LSMD werden, um aktiv Leben zu retten und Verantwortung
-        in einer professionellen, strukturierten Organisation zu übernehmen.
-        Teamarbeit, Belastbarkeit und ein ruhiges Auftreten zeichnen mich aus.
-        Ich bin bereit, mich weiterzubilden und Verantwortung zu übernehmen.
-    </p>
-</div>
+    <h2>Erfahrung</h2>
+    <div class="card">
+        <p>
+            - Zeit im alten MD  
+            - Führungspositionen  
+            - Ausbildungserfahrung  
+            - Besondere Einsätze
+        </p>
+    </div>
 
-<div class="card">
-    <h2>💉 Warum LSMD?</h2>
-    <p>
-        Das LSMD steht für schnelle Hilfe, Professionalität und starke Teamarbeit.
-        Genau diese Werte vertrete auch ich. 
-        Ich freue mich darauf, ein Teil dieser Organisation zu werden
-        und gemeinsam mit dem Team Los Santos sicherer zu machen.
-    </p>
+    <h2>Motivation</h2>
+    <div class="card">
+        <p>
+            Warum willst du wechseln?  
+            Was bringst du mit?  
+            Welche Ziele hast du?
+        </p>
+    </div>
 
-    <button onclick="alert('Vielen Dank für Ihre Zeit! 🚑')">
-        Bewerbung prüfen
-    </button>
+    <div class="ekg-container">
+        <svg viewBox="0 0 500 150">
+            <path class="ekg-line"
+                d="M0,75 L50,75 L70,30 L90,120 L110,75 L160,75 
+                   L180,40 L200,110 L220,75 L500,75"/>
+        </svg>
+        <p>Medical Pulse Monitoring</p>
+    </div>
+
 </div>
 
 <footer>
-    © 2026 Jeff Jeremain | Bewerbung LSMD
+    © 2026 Dein Name – MD Bewerbung
 </footer>
+
+<script>
+    function updateClock() {
+        const now = new Date();
+        const time = now.toLocaleTimeString('de-DE');
+        document.getElementById('clock').textContent = "Aktuelle Uhrzeit: " + time;
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+</script>
 
 </body>
 </html>
