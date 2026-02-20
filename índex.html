@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MD Bewerbung – Jeff Jeremain</title>
+
+  <style>
+    :root{
+      --bg1:#070A12;
+      --bg2:#0B1630;
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(255,255,255,.09);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.65);
+      --accent:#00f5c8;
+      --accent2:#ff4fd8;
+      --danger:#ff3b6a;
+      --glow: 0 0 20px rgba(0,245,200,.35), 0 0 50px rgba(255,79,216,.18);
+      --radius: 22px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:
+        radial-gradient(1200px 800px at 10% 10%, rgba(0,245,200,.18), transparent 60%),
+        radial-gradient(1000px 700px at 90% 20%, rgba(255,79,216,.16), transparent 55%),
+        radial-gradient(900px 700px at 50% 110%, rgba(0,120,255,.14), transparent 60%),
+        linear-gradient(160deg, var(--bg1), var(--bg2));
+      overflow-x:hidden;
+    }
+
+    /* Subtle grid */
+    body:before{
+      content:"";
+      position:fixed; inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: radial-gradient(400px 400px at 50% 25%, rgba(0,0,0,.85), transparent 65%);
+      pointer-events:none;
+      opacity:.55;
+    }
+
+    .wrap{
+      max-width:1100px;
+      margin: 0 auto;
+      padding: 26px 18px 80px;
+    }
+
+    /* Top HUD */
+    .hud{
+      display:flex;
+      gap:14px;
+      align-items:stretch;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      padding:16px 18px;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      box-shadow: 0 18px 40px rgba(0,0,0,.35);
+      backdrop-filter: blur(10px);
+    }
+
+    .hud-left{
+      display:flex; gap:14px; align-items:center; flex-wrap:wrap;
+    }
+
+    .badge{
+      display:flex; gap:10px; align-items:center;
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: rgba(0,0,0,.25);
+      border: 1px solid rgba(255,255,255,.12);
+    }
+
+    .badge strong{
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-size:12px;
+      color: rgba(255,255,255,.85);
+    }
+    .badge span{
+      display:block;
+      font-size:14px;
+      color: var(--muted);
+      margin-top:2px;
+    }
+
+    .clock{
+      min-width: 220px;
+    }
+
+    /* Pulse emblem */
+    .pulse{
+      display:flex; align-items:center; gap:10px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: rgba(0,0,0,.25);
+      border: 1px solid rgba(255,255,255,.12);
+      position:relative;
+      overflow:hidden;
+    }
+    .pulse:after{
+      content:"";
+      position:absolute; inset:-80px -120px;
+      background: radial-gradient(circle at 30% 40%, rgba(0,245,200,.35), transparent 55%),
+                  radial-gradient(circle at 70% 60%, rgba(255,79,216,.22), transparent 55%);
+      filter: blur(18px);
+      opacity:.6;
+      pointer-events:none;
+      transform: translateZ(0);
+    }
+
+    .heart{
+      width:38px; height:38px;
+      border-radius: 14px;
+      display:grid;
+      place-items:center;
+      background: linear-gradient(135deg, rgba(0,245,200,.15), rgba(255,79,216,.12));
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: var(--glow);
+      position:relative;
+      z-index:1;
+    }
+    .heart svg{ width:20px; height:20px; }
+    .pulse-info{
+      position:relative;
+      z-index:1;
+      line-height:1.1;
+    }
+    .pulse-info .label{
+      font-size:12px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color: rgba(255,255,255,.82);
+    }
+    .pulse-info .value{
+      font-size:15px;
+      color: var(--muted);
+      margin-top:4px;
+      display:flex; gap:10px; align-items:center;
+    }
+    .dot{
+      width:8px; height:8px; border-radius:99px;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(0,245,200,.6);
+      animation: blink 1.2s infinite;
+    }
+    @keyframes blink{ 0%,100%{opacity:.35} 50%{opacity:1} }
+
+    /* Main hero */
+    .hero{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:16px;
+    }
+    @media (max-width: 900px){
+      .hero{ grid-template-columns:1fr; }
+      .clock{ min-width: unset; }
+    }
+
+    .panel{
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow: 0 18px 40px rgba(0,0,0,.35);
+      backdrop-filter: blur(10px);
+      position:relative;
+      overflow:hidden;
+    }
+    .panel:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: linear-gradient(120deg, rgba(0,245,200,.28), rgba(255,79,216,.18), transparent 55%);
+      opacity:.35;
+      filter: blur(24px);
+      pointer-events:none;
+    }
+
+    .panel-inner{
+      position:relative;
+      padding: 22px 22px 18px;
+      z-index:1;
+    }
+
+    .title{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:10px; flex-wrap:wrap;
+    }
+
+    h1{
+      margin:0;
+      font-size: 34px;
+      letter-spacing:.02em;
+    }
+    .subtitle{
+      color: var(--muted);
+      margin-top:8px;
+      line-height:1.45;
+      font-size:15px;
+      max-width: 70ch;
+    }
+
+    .chips{
+      display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;
+    }
+    .chip{
+      padding:8px 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.25);
+      border:1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.84);
+      font-size: 13px;
+      display:flex; align-items:center; gap:8px;
+    }
+    .chip b{ color: var(--accent); font-weight:700; }
+
+    .right-stack{
+      display:grid;
+      gap:16px;
+      align-content:start;
+    }
+
+    /* Data cards */
+    .data-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      margin-top: 16px;
+    }
+    @media (max-width: 640px){
+      .data-grid{ grid-template-columns:1fr; }
+    }
+
+    .data-card{
+      background: rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: 18px;
+      padding:14px 14px 12px;
+      position:relative;
+      overflow:hidden;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .data-card:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 0 0 1px rgba(0,245,200,.14), 0 18px 35px rgba(0,0,0,.35);
+    }
+    .k{
+      font-size:12px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color: rgba(255,255,255,.68);
+      margin-bottom:8px;
+    }
+    .v{
+      font-size:16px;
+      color: rgba(255,255,255,.92);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .pill{
+      font-size:12px;
+      padding:6px 8px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.78);
+    }
+
+    /* EKG monitor */
+    .monitor{
+      padding: 18px 18px 14px;
+    }
+    .monitor-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-bottom:10px;
+      flex-wrap:wrap;
+    }
+    .monitor-top .hdr{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+    }
+    .monitor-top .hdr strong{
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-size:12px;
+      color: rgba(255,255,255,.8);
+    }
+    .monitor-top .hdr span{
+      color: var(--muted);
+      font-size:13px;
+    }
+
+    .ekg-wrap{
+      background: rgba(0,0,0,.28);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: 18px;
+      padding: 10px 10px 4px;
+      overflow:hidden;
+      position:relative;
+    }
+
+    .ekg-wrap:before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity:.35;
+      pointer-events:none;
+      mask-image: radial-gradient(300px 200px at 35% 50%, rgba(0,0,0,1), transparent 70%);
+    }
+
+    svg{ width:100%; height:auto; display:block; position:relative; z-index:1; }
+
+    .ekg-line{
+      fill:none;
+      stroke: var(--accent);
+      stroke-width: 3.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: drop-shadow(0 0 10px rgba(0,245,200,.35));
+      stroke-dasharray: 1200;
+      stroke-dashoffset: 1200;
+      animation: ekg 2.8s linear infinite;
+    }
+    @keyframes ekg { to { stroke-dashoffset: 0; } }
+
+    .scan{
+      position:absolute;
+      top:0; bottom:0;
+      width: 120px;
+      background: linear-gradient(90deg, transparent, rgba(0,245,200,.16), transparent);
+      filter: blur(2px);
+      animation: scan 2.8s linear infinite;
+      z-index:2;
+      opacity:.65;
+    }
+    @keyframes scan{
+      0%{ left:-140px; }
+      100%{ left: calc(100% + 140px); }
+    }
+
+    .btns{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top: 14px;
+    }
+    .btn{
+      cursor:pointer;
+      user-select:none;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.22);
+      color: rgba(255,255,255,.9);
+      font-weight:600;
+      letter-spacing:.02em;
+      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      border-color: rgba(0,245,200,.35);
+      box-shadow: 0 12px 30px rgba(0,0,0,.35);
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(0,245,200,.18), rgba(255,79,216,.14));
+      border-color: rgba(0,245,200,.35);
+      box-shadow: var(--glow);
+    }
+
+    /* Application text */
+    .text{
+      margin-top:16px;
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.12);
+      line-height:1.6;
+      color: rgba(255,255,255,.88);
+      position:relative;
+      overflow:hidden;
+    }
+    .text:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(220px 220px at 20% 30%, rgba(0,245,200,.14), transparent 60%),
+                  radial-gradient(240px 240px at 80% 10%, rgba(255,79,216,.12), transparent 60%);
+      opacity:.85;
+      pointer-events:none;
+      filter: blur(18px);
+    }
+    .text > *{ position:relative; z-index:1; }
+
+    .footer{
+      margin-top: 18px;
+      text-align:center;
+      color: rgba(255,255,255,.55);
+      font-size: 12px;
+    }
+
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,.55);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: 14px;
+      padding: 10px 12px;
+      color: rgba(255,255,255,.86);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 18px 40px rgba(0,0,0,.35);
+      opacity:0;
+      pointer-events:none;
+      transition: opacity .2s ease, transform .2s ease;
+      z-index: 50;
+      max-width: min(720px, calc(100% - 24px));
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+    }
+    .toast.show{
+      opacity:1;
+      transform: translateX(-50%) translateY(-4px);
+    }
+    .toast .mini-dot{
+      width:10px; height:10px; border-radius:999px;
+      margin-top:4px;
+      background: var(--accent2);
+      box-shadow: 0 0 14px rgba(255,79,216,.55);
+      flex:0 0 auto;
+    }
+    .toast b{ color: rgba(255,255,255,.92); }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <div class="hud">
+      <div class="hud-left">
+        <div class="badge">
+          <div>
+            <strong>MD APPLICATION</strong>
+            <span>Secure Intake • Case File</span>
+          </div>
+        </div>
+
+        <div class="badge clock" aria-live="polite">
+          <div>
+            <strong>Uhrzeit</strong>
+            <span id="clock">--:--:--</span>
+          </div>
+        </div>
+
+        <div class="pulse" title="Reaktives Monitoring (klickbar)">
+          <div class="heart" id="heartBox" aria-hidden="true">
+            <!-- heart icon -->
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 21s-7-4.35-9.5-8.9C.6 8.6 2.4 5.5 5.8 5.1c1.9-.2 3.2.8 4.2 2 1-1.2 2.3-2.2 4.2-2 3.4.4 5.2 3.5 3.3 7-2.5 4.55-9.5 8.9-9.5 8.9Z"
+                stroke="rgba(255,255,255,.9)" stroke-width="1.6" />
+            </svg>
+          </div>
+
+          <div class="pulse-info">
+            <div class="label">Live Monitor</div>
+            <div class="value">
+              <span class="dot" id="statusDot"></span>
+              <span><span id="bpm">--</span> BPM</span>
+              <span class="pill" id="monitorMode">AUTO</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="badge">
+        <div>
+          <strong>VISUM</strong>
+          <span>Stufe <b style="color:var(--accent); font-weight:800;">14</b></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero">
+      <!-- Left / main application -->
+      <section class="panel">
+        <div class="panel-inner">
+          <div class="title">
+            <div>
+              <h1>Jeff Jeremain</h1>
+              <div class="subtitle">
+                Bewerbungsakte für den Medical Department Dienst.<br/>
+                Fokus: Professionalität, Teamführung & sauberes Roleplay unter Stress.
+              </div>
+              <div class="chips">
+                <div class="chip">IC Alter: <b>36</b></div>
+                <div class="chip">OOC Alter: <b>19</b></div>
+                <div class="chip">Vorerfahrung: <b>Ja</b> (Führungskraft)</div>
+                <div class="chip">Telefon: <b>6029103965</b></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="data-grid" role="list">
+            <div class="data-card" role="listitem">
+              <div class="k">Name</div>
+              <div class="v">
+                <span>Jeff Jeremain</span>
+                <span class="pill">Applicant</span>
+              </div>
+            </div>
+
+            <div class="data-card" role="listitem">
+              <div class="k">Telefonnummer</div>
+              <div class="v">
+                <span>6029103965</span>
+                <span class="pill">Kontakt</span>
+              </div>
+            </div>
+
+            <div class="data-card" role="listitem">
+              <div class="k">Alter</div>
+              <div class="v">
+                <span>36 Jahre IC • 19 Jahre OOC</span>
+                <span class="pill">Verified</span>
+              </div>
+            </div>
+
+            <div class="data-card" role="listitem">
+              <div class="k">MD Vorerfahrungen</div>
+              <div class="v">
+                <span>Ja – auf anderem Server als Führungskraft</span>
+                <span class="pill">Leadership</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="text">
+            <h3 style="margin:0 0 10px; letter-spacing:.04em;">Bewerbungstext</h3>
+            <p style="margin:0 0 10px;">
+              Sehr geehrte Leitung des Medical Departments,
+            </p>
+            <p style="margin:0 0 10px;">
+              mein Name ist <b>Jeff Jeremain</b> und ich bewerbe mich hiermit für den Dienst im MD.
+              Ich bringe bereits <b>MD-Erfahrung</b> von einem anderen Server mit – dort war ich als <b>Führungskraft</b> tätig.
+              Dadurch habe ich gelernt, unter Druck klare Entscheidungen zu treffen, Teams zu koordinieren und Abläufe ruhig und
+              professionell zu halten, auch wenn es im Funk oder am Einsatzort hektisch wird.
+            </p>
+            <p style="margin:0 0 10px;">
+              Was mir wichtig ist: <b>sauberes, faires RP</b>, Respekt im Umgang mit Patienten und Kollegen, sowie ein
+              konsequentes Einhalten von Strukturen. Ich bin zuverlässig, lernbereit und habe ein starkes Interesse daran,
+              mich in eure internen Prozesse einzuarbeiten und aktiv zum Teamklima beizutragen.
+            </p>
+            <p style="margin:0;">
+              Ich freue mich auf die Möglichkeit, mich im Gespräch oder in einer Probephase zu beweisen.
+              Vielen Dank für eure Zeit.
+              <br><br>
+              Mit freundlichen Grüßen<br>
+              <b>Jeff Jeremain</b>
+            </p>
+          </div>
+
+          <div class="btns">
+            <button class="btn primary" id="submitBtn">Bewerbung einreichen</button>
+            <button class="btn" id="copyBtn">Daten kopieren</button>
+            <button class="btn" id="pulseBtn">Monitor-Modus</button>
+          </div>
+
+          <div class="footer">Hinweis: Diese Seite ist eine GitHub Pages Bewerbung (index.html) – Daten sind statisch.</div>
+        </div>
+      </section>
+
+      <!-- Right / monitor -->
+      <aside class="panel monitor">
+        <div class="monitor-top">
+          <div class="hdr">
+            <strong>Herzmonitor</strong>
+            <span>Interaktives EKG • Reaktive BPM</span>
+          </div>
+          <div class="pill">STATUS: <span id="statusText" style="color:var(--accent); font-weight:800;">STABIL</span></div>
+        </div>
+
+        <div class="ekg-wrap" id="ekgWrap">
+          <div class="scan"></div>
+          <svg viewBox="0 0 600 160" aria-label="EKG Anzeige">
+            <path class="ekg-line"
+              d="M0,90 L60,90 L85,90 L95,60 L110,120 L125,90 L175,90
+                 L200,90 L215,70 L230,110 L245,90 L300,90
+                 L325,90 L340,55 L355,128 L370,90 L430,90
+                 L455,90 L470,72 L485,108 L500,90 L600,90" />
+          </svg>
+        </div>
+
+        <div style="display:grid; gap:10px; margin-top:12px;">
+          <div class="data-card">
+            <div class="k">Monitoring Hinweise</div>
+            <div class="v" style="justify-content:flex-start;">
+              <span style="color:var(--muted); font-size:14px;">
+                Klick auf das Herz oder „Monitor-Modus“: BPM & Status reagieren.
+              </span>
+            </div>
+          </div>
+
+          <div class="data-card">
+            <div class="k">Kurzprofil</div>
+            <div class="v" style="justify-content:flex-start;">
+              <span style="color:rgba(255,255,255,.86); font-size:14px;">
+                Führungsstark • strukturiert • teamorientiert • patientenfokussiert
+              </span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <div class="mini-dot"></div>
+    <div id="toastText">—</div>
+  </div>
+
+  <script>
+    // Live clock (local browser time)
+    const clockEl = document.getElementById('clock');
+    function updateClock(){
+      const now = new Date();
+      const t = now.toLocaleTimeString('de-DE', { hour12:false });
+      const d = now.toLocaleDateString('de-DE', { weekday:'long', year:'numeric', month:'2-digit', day:'2-digit' });
+      clockEl.textContent = `${t} • ${d}`;
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    // Toast helper
+    const toast = document.getElementById('toast');
+    const toastText = document.getElementById('toastText');
+    let toastTimer = null;
+    function showToast(html){
+      toastText.innerHTML = html;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(()=>toast.classList.remove('show'), 2600);
+    }
+
+    // Reactive heart monitor
+    const bpmEl = document.getElementById('bpm');
+    const statusText = document.getElementById('statusText');
+    const statusDot = document.getElementById('statusDot');
+    const heartBox = document.getElementById('heartBox');
+    const monitorModeEl = document.getElementById('monitorMode');
+
+    let modeIndex = 0;
+    const modes = [
+      { name: "AUTO", min: 72, max: 92, label:"STABIL", color:"var(--accent)" },
+      { name: "FOCUS", min: 62, max: 78, label:"RUHIG", color:"var(--accent)" },
+      { name: "ALERT", min: 88, max: 118, label:"ALARM", color:"var(--danger)" }
+    ];
+
+    function randInt(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
+
+    function applyMode(){
+      const m = modes[modeIndex];
+      monitorModeEl.textContent = m.name;
+      statusText.textContent = m.label;
+      statusText.style.color = m.color;
+
+      // dot color
+      statusDot.style.background = m.color;
+      statusDot.style.boxShadow = `0 0 14px ${m.color}`;
+
+      // adjust ekg speed
+      const line = document.querySelector('.ekg-line');
+      const scan = document.querySelector('.scan');
+      const speed = m.name === "ALERT" ? 1.7 : (m.name === "FOCUS" ? 3.2 : 2.8);
+      line.style.animationDuration = speed + "s";
+      scan.style.animationDuration = speed + "s";
+
+      // push new bpm
+      const bpm = randInt(m.min, m.max);
+      bpmEl.textContent = bpm.toString();
+
+      // heart pulse animation
+      heartBox.animate(
+        [{ transform:"scale(1)" }, { transform:"scale(1.10)" }, { transform:"scale(1)" }],
+        { duration: m.name === "ALERT" ? 420 : (m.name === "FOCUS" ? 650 : 520), iterations: 1, easing:"ease-in-out" }
+      );
+    }
+
+    // keep bpm changing slightly
+    setInterval(()=>{
+      const m = modes[modeIndex];
+      const cur = parseInt(bpmEl.textContent || "80", 10);
+      const next = Math.max(m.min, Math.min(m.max, cur + randInt(-3, 4)));
+      bpmEl.textContent = next.toString();
+    }, 900);
+
+    // initial
+    applyMode();
+
+    function toggleMode(){
+      modeIndex = (modeIndex + 1) % modes.length;
+      applyMode();
+      showToast(`<b>Monitor</b> umgestellt: <b>${modes[modeIndex].name}</b> • Status: ${modes[modeIndex].label}`);
+    }
+
+    document.getElementById('pulseBtn').addEventListener('click', toggleMode);
+    heartBox.addEventListener('click', toggleMode);
+
+    // Submit (visual only)
+    document.getElementById('submitBtn').addEventListener('click', ()=>{
+      showToast(`✅ <b>Bewerbung eingereicht</b> (Demo) • Fallnummer: <b>MD-${Math.floor(Math.random()*9000+1000)}</b>`);
+    });
+
+    // Copy data
+    const copyBtn = document.getElementById('copyBtn');
+    copyBtn.addEventListener('click', async ()=>{
+      const text = [
+        "MD Bewerbung",
+        "Name: Jeff Jeremain",
+        "Alter: 36 Jahre IC / 19 Jahre OOC",
+        "Telefonnummer: 6029103965",
+        "Visum Stufe: 14",
+        "MD Vorerfahrungen: Ja – auf anderem Server als Führungskraft"
+      ].join("\n");
+
+      try{
+        await navigator.clipboard.writeText(text);
+        showToast(`📋 <b>In Zwischenablage kopiert</b>`);
+      }catch(e){
+        showToast(`⚠️ Kopieren nicht erlaubt (Browser). Markiere den Text manuell.`);
+      }
+    });
+  </script>
+</body>
+</html>
