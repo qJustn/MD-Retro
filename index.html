@@ -3,21 +3,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="color-scheme" content="dark" />
   <title>MD Bewerbung – Jeff Jeremain</title>
 
   <style>
     :root{
       --bg1:#070A12;
       --bg2:#0B1630;
+
       --card: rgba(255,255,255,.06);
       --card2: rgba(255,255,255,.09);
+
       --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.65);
+      --muted: rgba(255,255,255,.68);
+
       --accent:#00f5c8;
       --accent2:#ff4fd8;
       --danger:#ff3b6a;
-      --glow: 0 0 20px rgba(0,245,200,.35), 0 0 50px rgba(255,79,216,.18);
+
       --radius: 22px;
+      --shadow: 0 18px 40px rgba(0,0,0,.35);
+      --stroke: 1px solid rgba(255,255,255,.12);
+      --strokeStrong: 1px solid rgba(255,255,255,.16);
+
+      --glowSoft: 0 0 18px rgba(0,245,200,.22), 0 0 42px rgba(255,79,216,.14);
+      --glowHard: 0 0 18px rgba(0,245,200,.35);
     }
 
     *{ box-sizing:border-box; }
@@ -27,9 +37,9 @@
       color:var(--text);
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
       background:
-        radial-gradient(1200px 800px at 10% 10%, rgba(0,245,200,.18), transparent 60%),
-        radial-gradient(1000px 700px at 90% 20%, rgba(255,79,216,.16), transparent 55%),
-        radial-gradient(900px 700px at 50% 110%, rgba(0,120,255,.14), transparent 60%),
+        radial-gradient(1200px 800px at 10% 10%, rgba(0,245,200,.16), transparent 60%),
+        radial-gradient(1000px 700px at 90% 20%, rgba(255,79,216,.14), transparent 55%),
+        radial-gradient(900px 700px at 50% 110%, rgba(0,120,255,.12), transparent 60%),
         linear-gradient(160deg, var(--bg1), var(--bg2));
       overflow-x:hidden;
     }
@@ -41,16 +51,16 @@
       background-image:
         linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
-      background-size: 44px 44px;
-      mask-image: radial-gradient(400px 400px at 50% 25%, rgba(0,0,0,.85), transparent 65%);
+      background-size: 46px 46px;
+      mask-image: radial-gradient(420px 420px at 50% 20%, rgba(0,0,0,.9), transparent 70%);
       pointer-events:none;
-      opacity:.55;
+      opacity:.52;
     }
 
     .wrap{
       max-width:1100px;
       margin: 0 auto;
-      padding: 26px 18px 80px;
+      padding: 26px 18px 90px;
     }
 
     /* Top HUD */
@@ -61,11 +71,12 @@
       justify-content:space-between;
       flex-wrap:wrap;
       padding:16px 18px;
-      border:1px solid rgba(255,255,255,.12);
+      border:var(--stroke);
       border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
-      box-shadow: 0 18px 40px rgba(0,0,0,.35);
+      background: linear-gradient(180deg, rgba(255,255,255,.085), rgba(255,255,255,.03));
+      box-shadow: var(--shadow);
       backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
     .hud-left{
@@ -76,15 +87,15 @@
       display:flex; gap:10px; align-items:center;
       padding: 10px 12px;
       border-radius: 16px;
-      background: rgba(0,0,0,.25);
-      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.22);
+      border: var(--stroke);
     }
 
     .badge strong{
       letter-spacing:.12em;
       text-transform:uppercase;
       font-size:12px;
-      color: rgba(255,255,255,.85);
+      color: rgba(255,255,255,.86);
     }
     .badge span{
       display:block;
@@ -92,28 +103,29 @@
       color: var(--muted);
       margin-top:2px;
     }
+    .badge b{ font-weight:800; }
 
-    .clock{
-      min-width: 220px;
-    }
+    .clock{ min-width: 240px; }
 
     /* Pulse emblem */
     .pulse{
       display:flex; align-items:center; gap:10px;
       padding: 10px 12px;
       border-radius: 16px;
-      background: rgba(0,0,0,.25);
-      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.22);
+      border: var(--stroke);
       position:relative;
       overflow:hidden;
+      cursor:pointer;
     }
     .pulse:after{
       content:"";
       position:absolute; inset:-80px -120px;
-      background: radial-gradient(circle at 30% 40%, rgba(0,245,200,.35), transparent 55%),
-                  radial-gradient(circle at 70% 60%, rgba(255,79,216,.22), transparent 55%);
+      background:
+        radial-gradient(circle at 30% 40%, rgba(0,245,200,.30), transparent 55%),
+        radial-gradient(circle at 70% 60%, rgba(255,79,216,.18), transparent 55%);
       filter: blur(18px);
-      opacity:.6;
+      opacity:.55;
       pointer-events:none;
       transform: translateZ(0);
     }
@@ -123,13 +135,14 @@
       border-radius: 14px;
       display:grid;
       place-items:center;
-      background: linear-gradient(135deg, rgba(0,245,200,.15), rgba(255,79,216,.12));
-      border: 1px solid rgba(255,255,255,.14);
-      box-shadow: var(--glow);
+      background: linear-gradient(135deg, rgba(0,245,200,.14), rgba(255,79,216,.10));
+      border: var(--strokeStrong);
+      box-shadow: var(--glowSoft);
       position:relative;
       z-index:1;
     }
     .heart svg{ width:20px; height:20px; }
+
     .pulse-info{
       position:relative;
       z-index:1;
@@ -147,6 +160,7 @@
       margin-top:4px;
       display:flex; gap:10px; align-items:center;
     }
+
     .dot{
       width:8px; height:8px; border-radius:99px;
       background: var(--accent);
@@ -159,8 +173,9 @@
     .hero{
       margin-top:18px;
       display:grid;
-      grid-template-columns: 1.2fr .8fr;
+      grid-template-columns: 1.25fr .75fr;
       gap:16px;
+      align-items:start;
     }
     @media (max-width: 900px){
       .hero{ grid-template-columns:1fr; }
@@ -169,19 +184,20 @@
 
     .panel{
       border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
-      border:1px solid rgba(255,255,255,.12);
-      box-shadow: 0 18px 40px rgba(0,0,0,.35);
+      background: linear-gradient(180deg, rgba(255,255,255,.085), rgba(255,255,255,.03));
+      border: var(--stroke);
+      box-shadow: var(--shadow);
       backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       position:relative;
       overflow:hidden;
     }
     .panel:before{
       content:"";
       position:absolute; inset:-2px;
-      background: linear-gradient(120deg, rgba(0,245,200,.28), rgba(255,79,216,.18), transparent 55%);
-      opacity:.35;
-      filter: blur(24px);
+      background: linear-gradient(120deg, rgba(0,245,200,.22), rgba(255,79,216,.14), transparent 55%);
+      opacity:.32;
+      filter: blur(26px);
       pointer-events:none;
     }
 
@@ -203,9 +219,9 @@
     .subtitle{
       color: var(--muted);
       margin-top:8px;
-      line-height:1.45;
+      line-height:1.5;
       font-size:15px;
-      max-width: 70ch;
+      max-width: 72ch;
     }
 
     .chips{
@@ -214,19 +230,13 @@
     .chip{
       padding:8px 10px;
       border-radius: 999px;
-      background: rgba(0,0,0,.25);
-      border:1px solid rgba(255,255,255,.12);
-      color: rgba(255,255,255,.84);
+      background: rgba(0,0,0,.22);
+      border: var(--stroke);
+      color: rgba(255,255,255,.86);
       font-size: 13px;
       display:flex; align-items:center; gap:8px;
     }
-    .chip b{ color: var(--accent); font-weight:700; }
-
-    .right-stack{
-      display:grid;
-      gap:16px;
-      align-content:start;
-    }
+    .chip b{ color: var(--accent); font-weight:800; }
 
     /* Data cards */
     .data-grid{
@@ -240,17 +250,18 @@
     }
 
     .data-card{
-      background: rgba(0,0,0,.22);
-      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.20);
+      border: var(--stroke);
       border-radius: 18px;
       padding:14px 14px 12px;
       position:relative;
       overflow:hidden;
-      transition: transform .18s ease, box-shadow .18s ease;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
     }
     .data-card:hover{
       transform: translateY(-2px);
-      box-shadow: 0 0 0 1px rgba(0,245,200,.14), 0 18px 35px rgba(0,0,0,.35);
+      border-color: rgba(0,245,200,.22);
+      box-shadow: 0 0 0 1px rgba(0,245,200,.12), 0 18px 35px rgba(0,0,0,.35);
     }
     .k{
       font-size:12px;
@@ -272,15 +283,13 @@
       font-size:12px;
       padding:6px 8px;
       border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
+      border: var(--stroke);
       background: rgba(255,255,255,.06);
       color: rgba(255,255,255,.78);
     }
 
     /* EKG monitor */
-    .monitor{
-      padding: 18px 18px 14px;
-    }
+    .monitor{ padding: 18px 18px 14px; }
     .monitor-top{
       display:flex;
       justify-content:space-between;
@@ -298,7 +307,7 @@
       letter-spacing:.12em;
       text-transform:uppercase;
       font-size:12px;
-      color: rgba(255,255,255,.8);
+      color: rgba(255,255,255,.82);
     }
     .monitor-top .hdr span{
       color: var(--muted);
@@ -306,8 +315,8 @@
     }
 
     .ekg-wrap{
-      background: rgba(0,0,0,.28);
-      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.26);
+      border: var(--stroke);
       border-radius: 18px;
       padding: 10px 10px 4px;
       overflow:hidden;
@@ -321,9 +330,9 @@
         linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
       background-size: 28px 28px;
-      opacity:.35;
+      opacity:.30;
       pointer-events:none;
-      mask-image: radial-gradient(300px 200px at 35% 50%, rgba(0,0,0,1), transparent 70%);
+      mask-image: radial-gradient(320px 220px at 40% 50%, rgba(0,0,0,1), transparent 72%);
     }
 
     svg{ width:100%; height:auto; display:block; position:relative; z-index:1; }
@@ -334,7 +343,7 @@
       stroke-width: 3.6;
       stroke-linecap: round;
       stroke-linejoin: round;
-      filter: drop-shadow(0 0 10px rgba(0,245,200,.35));
+      filter: drop-shadow(0 0 10px rgba(0,245,200,.30));
       stroke-dasharray: 1200;
       stroke-dashoffset: 1200;
       animation: ekg 2.8s linear infinite;
@@ -345,11 +354,11 @@
       position:absolute;
       top:0; bottom:0;
       width: 120px;
-      background: linear-gradient(90deg, transparent, rgba(0,245,200,.16), transparent);
+      background: linear-gradient(90deg, transparent, rgba(0,245,200,.14), transparent);
       filter: blur(2px);
       animation: scan 2.8s linear infinite;
       z-index:2;
-      opacity:.65;
+      opacity:.55;
     }
     @keyframes scan{
       0%{ left:-140px; }
@@ -365,32 +374,33 @@
       user-select:none;
       padding: 10px 12px;
       border-radius: 14px;
-      border:1px solid rgba(255,255,255,.14);
+      border: var(--stroke);
       background: rgba(0,0,0,.22);
       color: rgba(255,255,255,.9);
-      font-weight:600;
+      font-weight:700;
       letter-spacing:.02em;
       transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
     }
     .btn:hover{
       transform: translateY(-1px);
-      border-color: rgba(0,245,200,.35);
+      border-color: rgba(0,245,200,.28);
       box-shadow: 0 12px 30px rgba(0,0,0,.35);
     }
     .btn.primary{
-      background: linear-gradient(135deg, rgba(0,245,200,.18), rgba(255,79,216,.14));
-      border-color: rgba(0,245,200,.35);
-      box-shadow: var(--glow);
+      background: linear-gradient(135deg, rgba(0,245,200,.18), rgba(255,79,216,.12));
+      border-color: rgba(0,245,200,.32);
+      box-shadow: var(--glowSoft);
     }
+    .btn:active{ transform: translateY(0px) scale(.99); }
 
     /* Application text */
     .text{
       margin-top:16px;
       padding: 18px;
       border-radius: 18px;
-      background: rgba(0,0,0,.22);
-      border:1px solid rgba(255,255,255,.12);
-      line-height:1.6;
+      background: rgba(0,0,0,.20);
+      border: var(--stroke);
+      line-height:1.65;
       color: rgba(255,255,255,.88);
       position:relative;
       overflow:hidden;
@@ -398,8 +408,9 @@
     .text:before{
       content:"";
       position:absolute; inset:-2px;
-      background: radial-gradient(220px 220px at 20% 30%, rgba(0,245,200,.14), transparent 60%),
-                  radial-gradient(240px 240px at 80% 10%, rgba(255,79,216,.12), transparent 60%);
+      background:
+        radial-gradient(240px 240px at 18% 30%, rgba(0,245,200,.12), transparent 62%),
+        radial-gradient(280px 280px at 82% 8%, rgba(255,79,216,.10), transparent 62%);
       opacity:.85;
       pointer-events:none;
       filter: blur(18px);
@@ -419,17 +430,18 @@
       bottom: 18px;
       transform: translateX(-50%);
       background: rgba(0,0,0,.55);
-      border:1px solid rgba(255,255,255,.12);
+      border: var(--stroke);
       border-radius: 14px;
       padding: 10px 12px;
       color: rgba(255,255,255,.86);
       backdrop-filter: blur(10px);
-      box-shadow: 0 18px 40px rgba(0,0,0,.35);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
       opacity:0;
       pointer-events:none;
       transition: opacity .2s ease, transform .2s ease;
       z-index: 50;
-      max-width: min(720px, calc(100% - 24px));
+      max-width: min(820px, calc(100% - 24px));
       display:flex;
       gap:10px;
       align-items:flex-start;
@@ -442,10 +454,33 @@
       width:10px; height:10px; border-radius:999px;
       margin-top:4px;
       background: var(--accent2);
-      box-shadow: 0 0 14px rgba(255,79,216,.55);
+      box-shadow: 0 0 14px rgba(255,79,216,.45);
       flex:0 0 auto;
     }
-    .toast b{ color: rgba(255,255,255,.92); }
+    .toast b{ color: rgba(255,255,255,.95); }
+
+    /* Accessibility */
+    :focus-visible{
+      outline: 2px solid rgba(0,245,200,.65);
+      outline-offset: 3px;
+      border-radius: 14px;
+    }
+
+    /* Reduce motion */
+    @media (prefers-reduced-motion: reduce){
+      *{ scroll-behavior:auto !important; }
+      .dot, .ekg-line, .scan{ animation:none !important; }
+    }
+
+    /* Print */
+    @media print{
+      body{ background:#fff; color:#111; }
+      body:before{ display:none; }
+      .hud, .panel, .data-card, .text, .toast{ box-shadow:none !important; backdrop-filter:none !important; }
+      .btns, .toast, .scan{ display:none !important; }
+      .panel:before, .text:before, .pulse:after{ display:none !important; }
+      .chip, .pill{ border:1px solid #ccc !important; background:#f5f5f5 !important; color:#111 !important; }
+    }
   </style>
 </head>
 
@@ -468,9 +503,9 @@
           </div>
         </div>
 
-        <div class="pulse" title="Reaktives Monitoring (klickbar)">
+        <!-- Click anywhere on the pulse block -->
+        <div class="pulse" id="pulseBlock" title="Klick: Monitor-Modus wechseln" role="button" tabindex="0" aria-label="Monitor-Modus wechseln">
           <div class="heart" id="heartBox" aria-hidden="true">
-            <!-- heart icon -->
             <svg viewBox="0 0 24 24" fill="none">
               <path d="M12 21s-7-4.35-9.5-8.9C.6 8.6 2.4 5.5 5.8 5.1c1.9-.2 3.2.8 4.2 2 1-1.2 2.3-2.2 4.2-2 3.4.4 5.2 3.5 3.3 7-2.5 4.55-9.5 8.9-9.5 8.9Z"
                 stroke="rgba(255,255,255,.9)" stroke-width="1.6" />
@@ -491,14 +526,14 @@
       <div class="badge">
         <div>
           <strong>VISUM</strong>
-          <span>Stufe <b style="color:var(--accent); font-weight:800;">16</b></span>
+          <span>Stufe <b style="color:var(--accent); font-weight:900;">16</b></span>
         </div>
       </div>
     </div>
 
     <div class="hero">
       <!-- Left / main application -->
-      <section class="panel">
+      <section class="panel" aria-label="Bewerbungsakte">
         <div class="panel-inner">
           <div class="title">
             <div>
@@ -507,16 +542,20 @@
                 Bewerbungsakte für den Medical Department Dienst.<br/>
                 Fokus: Professionalität, Teamführung & sauberes Roleplay unter Stress.
               </div>
-              <div class="chips">
+
+              <!-- Quick chips (requested core data) -->
+              <div class="chips" aria-label="Kurzinfos">
+                <div class="chip">Name: <b>Jeff Jeremain</b></div>
                 <div class="chip">IC Alter: <b>36</b></div>
                 <div class="chip">OOC Alter: <b>19</b></div>
-                <div class="chip">Vorerfahrung: <b>Ja</b> (Führungskraft)</div>
                 <div class="chip">Telefon: <b>6029103965</b></div>
+                <div class="chip">Visum: <b>Stufe 16</b></div>
+                <div class="chip">MD Vorerfahrung: <b>Ja</b> (Führungskraft)</div>
               </div>
             </div>
           </div>
 
-          <div class="data-grid" role="list">
+          <div class="data-grid" role="list" aria-label="Stammdaten">
             <div class="data-card" role="listitem">
               <div class="k">Name</div>
               <div class="v">
@@ -544,13 +583,29 @@
             <div class="data-card" role="listitem">
               <div class="k">MD Vorerfahrungen</div>
               <div class="v">
-                <span>Ja – auf anderem Server als Führungskraft</span>
+                <span>Ja – als Führungskraft in einer anderen Stadt</span>
                 <span class="pill">Leadership</span>
+              </div>
+            </div>
+
+            <div class="data-card" role="listitem">
+              <div class="k">Visum</div>
+              <div class="v">
+                <span>Stufe 16</span>
+                <span class="pill">Active</span>
+              </div>
+            </div>
+
+            <div class="data-card" role="listitem">
+              <div class="k">Status</div>
+              <div class="v">
+                <span id="caseState">Bereit zur Prüfung</span>
+                <span class="pill" id="caseTag">OPEN</span>
               </div>
             </div>
           </div>
 
-          <div class="text">
+          <div class="text" id="applicationText">
             <h3 style="margin:0 0 10px; letter-spacing:.04em;">Bewerbungstext</h3>
             <p style="margin:0 0 10px;">
               Sehr geehrte Leitung des Medical Departments,
@@ -575,24 +630,26 @@
             </p>
           </div>
 
-          <div class="btns">
+          <div class="btns" aria-label="Aktionen">
             <button class="btn primary" id="submitBtn">Bewerbung einreichen</button>
             <button class="btn" id="copyBtn">Daten kopieren</button>
             <button class="btn" id="pulseBtn">Monitor-Modus</button>
           </div>
 
-          <div class="footer">Hinweis: Diese Seite ist eine GitHub Pages Bewerbung (index.html) – Daten sind statisch.</div>
+          <div class="footer">
+            Hinweis: GitHub Pages (index.html) • Daten sind statisch • Interaktionen sind Demo-only.
+          </div>
         </div>
       </section>
 
       <!-- Right / monitor -->
-      <aside class="panel monitor">
+      <aside class="panel monitor" aria-label="Herzmonitor">
         <div class="monitor-top">
           <div class="hdr">
             <strong>Herzmonitor</strong>
             <span>Interaktives EKG • Reaktive BPM</span>
           </div>
-          <div class="pill">STATUS: <span id="statusText" style="color:var(--accent); font-weight:800;">STABIL</span></div>
+          <div class="pill">STATUS: <span id="statusText" style="color:var(--accent); font-weight:900;">STABIL</span></div>
         </div>
 
         <div class="ekg-wrap" id="ekgWrap">
@@ -611,7 +668,7 @@
             <div class="k">Monitoring Hinweise</div>
             <div class="v" style="justify-content:flex-start;">
               <span style="color:var(--muted); font-size:14px;">
-                Klick auf das Herz oder „Monitor-Modus“: BPM & Status reagieren.
+                Klick auf den Monitor oben oder „Monitor-Modus“: BPM & Status reagieren.
               </span>
             </div>
           </div>
@@ -619,7 +676,7 @@
           <div class="data-card">
             <div class="k">Kurzprofil</div>
             <div class="v" style="justify-content:flex-start;">
-              <span style="color:rgba(255,255,255,.86); font-size:14px;">
+              <span style="color:rgba(255,255,255,.88); font-size:14px;">
                 Führungsstark • strukturiert • teamorientiert • patientenfokussiert
               </span>
             </div>
@@ -664,12 +721,14 @@
     const statusDot = document.getElementById('statusDot');
     const heartBox = document.getElementById('heartBox');
     const monitorModeEl = document.getElementById('monitorMode');
+    const caseState = document.getElementById('caseState');
+    const caseTag = document.getElementById('caseTag');
 
     let modeIndex = 0;
     const modes = [
-      { name: "AUTO", min: 72, max: 92, label:"STABIL", color:"var(--accent)" },
-      { name: "FOCUS", min: 62, max: 78, label:"RUHIG", color:"var(--accent)" },
-      { name: "ALERT", min: 88, max: 118, label:"ALARM", color:"var(--danger)" }
+      { name: "AUTO",  min: 72, max: 92,  label:"STABIL", color:"var(--accent)", case:"Bereit zur Prüfung", tag:"OPEN" },
+      { name: "FOCUS", min: 62, max: 78,  label:"RUHIG",  color:"var(--accent)", case:"In Bearbeitung",     tag:"REVIEW" },
+      { name: "ALERT", min: 88, max: 118, label:"ALARM",  color:"var(--danger)", case:"Priorität hoch",      tag:"URGENT" }
     ];
 
     function randInt(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
@@ -691,13 +750,16 @@
       line.style.animationDuration = speed + "s";
       scan.style.animationDuration = speed + "s";
 
-      // push new bpm
-      const bpm = randInt(m.min, m.max);
-      bpmEl.textContent = bpm.toString();
+      // case state
+      caseState.textContent = m.case;
+      caseTag.textContent = m.tag;
 
-      // heart pulse animation
+      // push new bpm
+      bpmEl.textContent = String(randInt(m.min, m.max));
+
+      // heart pulse animation (light)
       heartBox.animate(
-        [{ transform:"scale(1)" }, { transform:"scale(1.10)" }, { transform:"scale(1)" }],
+        [{ transform:"scale(1)" }, { transform:"scale(1.08)" }, { transform:"scale(1)" }],
         { duration: m.name === "ALERT" ? 420 : (m.name === "FOCUS" ? 650 : 520), iterations: 1, easing:"ease-in-out" }
       );
     }
@@ -707,7 +769,7 @@
       const m = modes[modeIndex];
       const cur = parseInt(bpmEl.textContent || "80", 10);
       const next = Math.max(m.min, Math.min(m.max, cur + randInt(-3, 4)));
-      bpmEl.textContent = next.toString();
+      bpmEl.textContent = String(next);
     }, 900);
 
     // initial
@@ -716,34 +778,64 @@
     function toggleMode(){
       modeIndex = (modeIndex + 1) % modes.length;
       applyMode();
-      showToast(`<b>Monitor</b> umgestellt: <b>${modes[modeIndex].name}</b> • Status: ${modes[modeIndex].label}`);
+      const m = modes[modeIndex];
+      showToast(`<b>Monitor</b> umgestellt: <b>${m.name}</b> • Status: ${m.label}`);
     }
 
     document.getElementById('pulseBtn').addEventListener('click', toggleMode);
-    heartBox.addEventListener('click', toggleMode);
+    document.getElementById('pulseBlock').addEventListener('click', toggleMode);
+    document.getElementById('pulseBlock').addEventListener('keydown', (e)=>{
+      if(e.key === "Enter" || e.key === " "){
+        e.preventDefault();
+        toggleMode();
+      }
+    });
 
     // Submit (visual only)
     document.getElementById('submitBtn').addEventListener('click', ()=>{
-      showToast(`✅ <b>Bewerbung eingereicht</b> (Demo) • Fallnummer: <b>MD-${Math.floor(Math.random()*9000+1000)}</b>`);
+      const ref = `MD-${Math.floor(Math.random()*9000+1000)}`;
+      showToast(`✅ <b>Bewerbung eingereicht</b> (Demo) • Fallnummer: <b>${ref}</b>`);
+      caseState.textContent = "Eingereicht (Demo)";
+      caseTag.textContent = "SENT";
     });
 
-    // Copy data
-    const copyBtn = document.getElementById('copyBtn');
-    copyBtn.addEventListener('click', async ()=>{
+    // Copy data (includes required core data + application text)
+    document.getElementById('copyBtn').addEventListener('click', async ()=>{
+      const appText = document.getElementById('applicationText').innerText
+        .replace(/\n{3,}/g, "\n\n")
+        .trim();
+
       const text = [
         "MD Bewerbung",
         "Name: Jeff Jeremain",
         "Alter: 36 Jahre IC / 19 Jahre OOC",
         "Telefonnummer: 6029103965",
-        "Visum Stufe: 14",
-        "MD Vorerfahrungen: Ja – auf anderem Server als Führungskraft"
+        "Visum Stufe: 16",
+        "MD Vorerfahrungen: Ja – als Führungskraft in einer anderen Stadt",
+        "",
+        "Bewerbungstext:",
+        appText
       ].join("\n");
 
+      // Clipboard API + fallback
       try{
         await navigator.clipboard.writeText(text);
         showToast(`📋 <b>In Zwischenablage kopiert</b>`);
       }catch(e){
-        showToast(`⚠️ Kopieren nicht erlaubt (Browser). Markiere den Text manuell.`);
+        // Fallback for restricted browsers
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.left = "-9999px";
+        document.body.appendChild(ta);
+        ta.select();
+        try{
+          document.execCommand("copy");
+          showToast(`📋 <b>In Zwischenablage kopiert</b> (Fallback)`);
+        }catch(err){
+          showToast(`⚠️ Kopieren nicht erlaubt (Browser).`);
+        }
+        document.body.removeChild(ta);
       }
     });
   </script>
